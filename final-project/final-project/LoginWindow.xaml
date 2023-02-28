@@ -5,14 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:final_project"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800" Background="#1976D2">
+        Title="LoginWindow" Height="400" Width="800" Background="DarkOrchid">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Offset="0" Color="#9C27B0"/>
-                <GradientStop Offset="1" Color="#4CAF50"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -20,28 +19,34 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Welcome to the Examination System" FontSize="24" FontWeight="Bold" Margin="10" VerticalAlignment="Top"/>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-            <TextBlock Text="Username:" Margin="5"/>
-            <TextBox Name="UsernameTextBox" Width="200" Margin="5" TextChanged="UsernameTextBox_TextChanged"/>
+
+        <Image Grid.Column="1" Source="/background.png"></Image>
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="Welcome to Gadi-Test" FontSize="28" FontWeight="Bold" Margin="10" Padding="10" VerticalAlignment="Top" Background="White" Opacity="0.5"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <TextBlock Text="Username:" Margin="5" Foreground="White"/>
+                <TextBox Name="UsernameTextBox" Width="200" Margin="5" TextChanged="UsernameTextBox_TextChanged"/>
+                <Image Source="/user_icon.png" Width="14"></Image>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                <TextBlock Text="Password:  " Margin="5" Foreground="White"/>
+                <PasswordBox Name="PasswordBox" Width="200" Margin="5"/>
+                <Image Source="/password_icon.png" Width="12"></Image>
+            </StackPanel>
+            <Button Grid.Row="3" Content="Login" Margin="10" Padding="10" Click="Button_Click" Background="#FFF" Width="280"/>
+            <TextBlock Grid.Row="4" Text="Don't have an account? Sign up here." Margin="10" HorizontalAlignment="Center">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="White"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="TextDecorations" Value="Underline"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
-            <TextBlock Text="Password:" Margin="5"/>
-            <PasswordBox Name="PasswordBox" Width="200" Margin="5"/>
-        </StackPanel>
-        <Button Grid.Row="3" Content="Login" Margin="10" Padding="10" Click="Button_Click" Background="#FFF" Width="280"/>
-        <TextBlock Grid.Row="4" Text="Don't have an account? Sign up here." Margin="10" HorizontalAlignment="Center">
-            <TextBlock.Style>
-                <Style TargetType="TextBlock">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="TextDecorations" Value="Underline"/>
-                            <Setter Property="Cursor" Value="Hand"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
     </Grid>
 </Window>

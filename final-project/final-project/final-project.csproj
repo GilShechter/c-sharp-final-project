@@ -8,4 +8,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="background.png" />
+    <None Remove="password_icon.png" />
+    <None Remove="user_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="background.png" />
+    <Resource Include="password_icon.png" />
+    <Resource Include="user_icon.png" />
+  </ItemGroup>
+
 </Project>
