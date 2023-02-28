@@ -19,3 +19,26 @@ C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.pdb
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.genruntimeconfig.cache
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\ref\final-project.dll
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\final-project.exe
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\final-project.deps.json
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\final-project.runtimeconfig.json
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\final-project.dll
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\final-project.pdb
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.csproj.AssemblyReference.cache
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\ExamWindow.g.cs
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\LoginWindow.g.cs
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\App.g.cs
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project_MarkupCompile.cache
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project_MarkupCompile.lref
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\ExamWindow.baml
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\LoginWindow.baml
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.g.resources
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.GeneratedMSBuildEditorConfig.editorconfig
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.AssemblyInfoInputs.cache
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.AssemblyInfo.cs
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.csproj.CoreCompileInputs.cache
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.dll
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\refint\final-project.dll
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.pdb
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.genruntimeconfig.cache
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\ref\final-project.dll

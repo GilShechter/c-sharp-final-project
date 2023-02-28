@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\
 final_project
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\App.xaml
-1-1623698816
+C:\src\github.com\finziamit\c-sharp-final-project\final-project\final-project\App.xaml
+2739689401
 
-61382934944
-1942030480316
-LoginWindow.xaml;
+9-1698834002
+194101785492
+ExamWindow.xaml;LoginWindow.xaml;
 
 False
 
