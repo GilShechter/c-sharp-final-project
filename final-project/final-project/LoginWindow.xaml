@@ -33,7 +33,7 @@
                 <PasswordBox Name="PasswordBox" Width="200" Margin="5" Height="30" VerticalContentAlignment="Center"/>
                 <Image Source="/password_icon.png" Width="12"></Image>
             </StackPanel>
-            <Button Grid.Row="3" Content="Login" Margin="10" Padding="10" Click="Button_Click" Background="#FFF" Width="300"/>
+            <Button Grid.Row="3" Content="Login" Margin="10" Padding="10" Click="Login_Button_Click" Background="#FFF" Width="300"/>
         </StackPanel>
     </Grid>
 </Window>

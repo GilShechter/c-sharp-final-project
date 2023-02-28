@@ -5,29 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:final_project"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="DarkOrchid">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <!-- Navigation Bar -->
-        <DockPanel Grid.Row="0" Background="DarkOrchid" LastChildFill="False">
-            <TextBlock Text="Examination System" Foreground="White" Margin="10" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" Margin="10">
-                <TextBlock Text="Search:" Foreground="White" VerticalAlignment="Center"/>
-                <TextBox Name="SearchTextBox" Width="200" Margin="5" Background="#FFF"/>
-                <TextBlock Text="{Binding SearchResults}" Foreground="White" Margin="10" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding UserName}" Foreground="White" Margin="10" VerticalAlignment="Center"/>
-            </StackPanel>
-        </DockPanel>
-        <!-- Main Content -->
-        <Grid Grid.Row="1" Background="#EDE7F6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="43*"/>
-                <ColumnDefinition Width="57*"/>
-            </Grid.ColumnDefinitions>
-            <!-- Main Content Goes Here -->
-        </Grid>
+        <Border Margin="50" CornerRadius="20" Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+                    <TextBlock Text="Hello, User" FontSize="18"/>
+                </StackPanel>
+                <Button Grid.Row="0"  x:Name="Add_Exam_Button" Click="Add_Exam_Button_Click" Padding="5" Content="Add Exam" Width="70" HorizontalAlignment="Left" Margin="594,10,0,10" />
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text="Search Exam:" FontSize="18" Margin="10" VerticalAlignment="Center"/>
+                    <TextBox Width="300" Margin="10" Height="30" VerticalContentAlignment="Center" />
+                </StackPanel>
+                <StackPanel Grid.Row="2" Margin="20">
+                    <ListBox Name="ExamsList" Height="180" Background="WhiteSmoke"></ListBox>
+                </StackPanel>
+            </Grid>
+
+        </Border>
     </Grid>
 </Window>

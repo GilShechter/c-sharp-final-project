@@ -23,5 +23,10 @@ namespace final_project
         {
             InitializeComponent();
         }
+
+        private void Add_Exam_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
