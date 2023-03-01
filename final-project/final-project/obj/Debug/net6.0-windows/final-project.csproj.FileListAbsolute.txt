@@ -41,3 +41,5 @@ C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\System.Text.Json.dll
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\final-project.csproj.CopyComplete
+C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\ExamWindow.g.cs
+C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\ExamWindow.baml
