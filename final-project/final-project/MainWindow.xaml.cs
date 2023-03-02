@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,14 +21,59 @@ namespace final_project
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        Student currentStudent;
+        List<Exam> examsList;
+        public MainWindow(Student student)
         {
             InitializeComponent();
+            currentStudent = student;
+            hello_msg.Text = $"Hello, {student.Name}";
+            Add_Exam_Button.Visibility = Visibility.Hidden;
+            examsList = new List<Exam>();
+            GetExams("");
         }
 
         private void Add_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void GetExams(string keyWord)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync("https://localhost:7002/api/Exam");
+                response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    examsList = JsonConvert.DeserializeObject<List<Exam>>(json);
+                    if (keyWord == "")
+                    {
+                        foreach (Exam item in examsList.ToList<Exam>())
+                        {
+                            this.ExamsList.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        examsList = examsList.Where(exam => exam.Name.Contains(keyWord)).ToList<Exam>();
+                        foreach (Exam item in examsList)
+                        {
+                            this.ExamsList.Items.Add(item);
+                        }
+
+
+                    }
+                }
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string keyWord = this.Search_bar.Text;
+            this.ExamsList.Items.Clear();
+            GetExams(keyWord);
         }
     }
 }

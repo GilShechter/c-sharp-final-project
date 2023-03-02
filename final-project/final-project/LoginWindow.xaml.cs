@@ -33,7 +33,8 @@ namespace final_project
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
+            Student student = new Student("Gil", "207226317");
+            MainWindow main = new MainWindow(student);
             main.Show();
             this.Close();
         }

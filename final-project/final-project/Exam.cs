@@ -40,5 +40,10 @@ namespace final_project
             }
             return counter;
         }
+
+        public override string ToString()
+        {
+            return $"{this.Name} \t\t {this.Duration} mins \t\t Teacher: {this.Teacher} \t\t Starts at: {this.DateTime.Date} {this.DateTime.TimeOfDay}";
+        }
     }
 }
