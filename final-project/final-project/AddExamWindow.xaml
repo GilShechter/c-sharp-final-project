@@ -20,9 +20,9 @@
                 <RowDefinition Height="*"  />
             </Grid.RowDefinitions>
             <TextBlock Name="QuestionsNumberBox" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Text="0"/>
-            <ListBox Name="ListBoxQuestions" Background="WhiteSmoke" Grid.Row="3"  Margin="0" VerticalAlignment="Stretch"/>
+            <ListBox Name="ListBoxQuestions" Background="WhiteSmoke" Grid.Row="3"  Margin="0" VerticalAlignment="Stretch" SelectionChanged="ListBoxQuestions_SelectionChanged" />
             <Button Name="AddQuestionBtn" Content="Add Question" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" Background="LightGreen" Click="AddQuestionBtn_Click"/>
-            
+
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0" >
             <Grid.ColumnDefinitions>
