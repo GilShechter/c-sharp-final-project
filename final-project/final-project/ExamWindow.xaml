@@ -37,8 +37,12 @@
 
             <TextBlock Name="tbTime" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="0"/>
             <Button Name="exitExamBtn" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Exit" Grid.Row="0" Margin="10" Height="20" Width="50" Click="exitBtnClick"/>
-            <StackPanel Name="QuestionContent" Grid.Row="1" Margin="10,10,10,10"/>
-            <StackPanel Name="OptionalAnswers" Grid.Row="2" Margin="10"/>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Height="150">
+                <StackPanel Name="QuestionContent" Margin="10,10,10,10"/>
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="150">
+                <StackPanel Name="OptionalAnswers" Grid.Row="2" Margin="10"/>
+            </ScrollViewer>
         </Grid>
         <StackPanel  Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Button FontSize="15"  Margin="10" Height="30" Content="Previous" Width="100" Name="PrevBtn" Click="PrevBtn_Click" />
