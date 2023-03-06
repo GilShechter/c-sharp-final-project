@@ -31,6 +31,11 @@ namespace final_project
             if (!currentUser.isTeacher)
             {
                 Add_Exam_Button.Visibility = Visibility.Hidden;
+                View_Exam_Button.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Start_Exam_Button.Visibility = Visibility.Hidden;
             }
             examsList = new List<Exam>();
             GetExams("");
@@ -71,6 +76,11 @@ namespace final_project
         {
             ExamWindow examWindow = new ExamWindow();
             examWindow.Show();
+        }
+
+        private void View_Exam_Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

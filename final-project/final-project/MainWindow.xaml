@@ -29,6 +29,8 @@
                     <ListBox Name="ExamsList" Height="150" Background="WhiteSmoke"></ListBox>
                 </StackPanel>
                 <Button Name="Start_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="Start_Exam_Button_Click">Start Exam</Button>
+                <Button Name="View_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="View_Exam_Button_Click">View Exam</Button>
+
             </Grid>
 
         </Border>
