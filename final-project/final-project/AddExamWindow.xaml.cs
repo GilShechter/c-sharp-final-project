@@ -73,72 +73,21 @@ namespace final_project
             /*
              * Button to add another question to the exam and show its empty fields.
              */
-            Answer answer;
-
+            
+            // Add an empty question
             int i = ListBoxQuestions.Items.Count;
-            string name = "Question " + i.ToString();            
 
-            /*
-             * add all the fields to the last question in our questions list
-             * and clear the answers list
-             */
-            
-            string questionContent = ContentTxt.Text;
-            
-            for(int j=0; j<this.OptionalAnswers.Children.Count; j++)
-            {
-                answer = new Answer(string.Empty);
+            Question question = new Question("", this._answers.ToArray());
+            question.Id = ListBoxQuestions.Items.Count + 1;
+            this._questions.Add(question);
 
-                if (OptionalAnswers.Children[j] is TextBox)
-                {
-                    TextBox tb = (TextBox)OptionalAnswers.Children[j];
-                    if (tb != null)
-                    {
-                        answer.content = tb.Text;
-                    }
-                }
+            ListBoxQuestions.Items.Add((Question)question);
 
-                else if (OptionalAnswers.Children[j] is CheckBox)
-                {
-                    CheckBox cb = (CheckBox)OptionalAnswers.Children[j];
-                    
-                    // NOTICE: for some reason the answer,correct answer setter
-                    // doesn't work this way altough the checkboxes responsivety
-                    // works good.
-                    // TODO: find out why and solve it
-                    if (cb.IsChecked == true)
-                    {
-                        answer.correct_answer = true;                    
-                    }
-
-                    else
-                    {
-                        answer.correct_answer = false;                        
-                    }
-
-                }
-
-                if (answer.content != string.Empty)
-                {
-                    this._answers.Add(answer);
-                }
-            }
-            if (ContentTxt.Text != string.Empty && this._answers.Count>=2
-                || ListBoxQuestions.Items.Count == 0)
-            {
-                Question question = new Question(questionContent, this._answers.ToArray());
-                question.Id = ListBoxQuestions.Items.Count + 1;
-                this._questions.Add(question);
-
-                ListBoxQuestions.Items.Add((Question)question);
-                this._answers.Clear();
-
-                // update the questions count
-                QuestionsNumberBox.Text = (i + 1).ToString();
-            }
+            // update the questions count
+            QuestionsNumberBox.Text = (i + 1).ToString();
 
             // select the new question
-            ListBoxQuestions.SelectedIndex = i;            
+            ListBoxQuestions.SelectedIndex = i;
         }
 
         private void AddAnswerBtn_Click(object sender, RoutedEventArgs e)
@@ -177,26 +126,29 @@ namespace final_project
              * Add the question content as image instead of text
              * TODO: fix the image to show up in the QuestionContent StakPanel
              */
-
+            if (this.ListBoxQuestions.Items.Count == 0) { return; }
+            
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.InitialDirectory = "C:\\";
 
-            if (dialog.ShowDialog() == true)
-            {
-                int index = this.ListBoxQuestions.SelectedIndex;
-                Question question = this._questions[index];
-                //Image img = new Image();
-                //QuestionContent.Children.Add(img);
+            int index = this.ListBoxQuestions.SelectedIndex;
+            Question question = this._questions[index];
 
+            if (dialog.ShowDialog() == true)
+            {             
                 string name = dialog.FileName;
                 string fileName = System.IO.Path.GetFileName(name);
                 string location = Environment.CurrentDirectory;
                 ContentTxt.Text = name;
-                //File.Copy(name, location, true);
+                File.Copy(name, location, true);
 
                 question.imgName = fileName;
                 question.imgPath = location;
-                //img.Source = new BitmapImage(new Uri(question.imgPath.ToString()));
+                question.content = string.Empty;
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri(question.imgPath));
+
+                QuestionContent.Children.Add(img);
             }
         }
 
@@ -204,8 +156,7 @@ namespace final_project
         {
             /*
              * Set the fields of the selected question to match
-             * the data inserted
-             * TODO: fix the functionality to show the right data
+             * the data inserted             
              */
 
             // clear the question and answers fields
@@ -213,10 +164,20 @@ namespace final_project
             ContentTxt.Clear();
 
             // get the currently selected index
-            int index = ListBoxQuestions.SelectedIndex;           
+            int index = ListBoxQuestions.SelectedIndex;
 
-            if(this._questions.Count != index+1) { return; }
-            ContentTxt.Text = this._questions[index].content;
+            if (this._questions[index].imgName != string.Empty)
+            {
+                Image img = new Image();
+                img.Source = new BitmapImage(new Uri(this._questions[index].imgPath));
+
+                ContentTxt.Text = this._questions[index].imgPath;
+                QuestionContent.Children.Add(img);
+            }
+            else
+            {
+                ContentTxt.Text = this._questions[index].content;
+            }
 
 
             CheckBox cb;
@@ -248,6 +209,76 @@ namespace final_project
                 OptionalAnswers.Children.Add(tb);
                 OptionalAnswers.Children.Add(cb);
             }
+        }
+
+        private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
+        {
+            /*
+             * Button to confirm the question's fields modifications
+             */
+            int index = ListBoxQuestions.SelectedIndex;
+            Answer answer;            
+
+            for (int j = 0; j < this.OptionalAnswers.Children.Count; j++)
+            {
+                answer = new Answer(string.Empty);
+
+                if (OptionalAnswers.Children[j] is TextBox)
+                {
+                    TextBox tb = (TextBox)OptionalAnswers.Children[j];
+                    if (tb != null)
+                    {
+                        answer.content = tb.Text;
+                    }
+                }
+
+                else if (OptionalAnswers.Children[j] is CheckBox)
+                {
+                    CheckBox cb = (CheckBox)OptionalAnswers.Children[j];
+
+                    // NOTICE: for some reason the correct answer setter
+                    // doesn't work this way altough the checkboxes responsivety
+                    // works well. therefore the answers and questions content stores 
+                    // well but the correct answer is always false for each one of them.
+                    // TODO: find out why and solve it
+
+                    if (cb.IsChecked == true)
+                    {
+                        answer.correct_answer = true;
+                    }
+
+                    else
+                    {
+                        answer.correct_answer = false;
+                    }
+
+                }
+
+                if (answer.content != string.Empty)
+                {
+                    this._answers.Add(answer);
+                }
+            }
+
+            // if there is no question content or at least 2 answers dont update
+            if (ContentTxt.Text == string.Empty || this._answers.Count < 2)
+            {
+                this._answers.Clear();
+                return;
+            }
+
+            // update the data
+            if (this._questions[index].imgName == string.Empty)
+            {
+                this._questions[index].content = ContentTxt.Text;
+            }
+            else
+            {
+                this._questions[index].content = this._questions[index].imgName;
+            }
+
+            this._questions[index].answers = this._answers.ToArray();
+            this._answers.Clear();
         }
     }
 }

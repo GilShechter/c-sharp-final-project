@@ -39,17 +39,20 @@
             </Grid.RowDefinitions>
 
             <Button Name="addExamBtn" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Add Exam" Grid.Row="0" Margin="10" Height="30" Width="80" Click="addExamBtn_Click"/>
-            <StackPanel Name="QuestionContent" Grid.Row="1" Margin="10,10,10,10">
-                <Label Name="Contentlbl" Content="Question: " HorizontalAlignment="Left" />
-                <TextBox Margin="10"  Background="LightGray" Name="ContentTxt" />
-                <Button Name="AddQuestionImage" Content="Add Question as Image" Width="150" Height="30" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" Click="AddQuestionImage_Click"/>
-            </StackPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="150">
+                <StackPanel Name="QuestionContent" Margin="10,10,10,10">
+                    <Label Name="Contentlbl" Content="Question: " HorizontalAlignment="Left" />
+                    <TextBox Margin="10"  Background="LightGray" Name="ContentTxt" />
+                    <Button Name="AddQuestionImage" Content="Add Question as Image" Width="150" Height="30" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" Click="AddQuestionImage_Click"/>
+                </StackPanel>
+            </ScrollViewer>
             <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="150">
                 <StackPanel Name="OptionalAnswers"  Margin="10"/>
             </ScrollViewer>
         </Grid>
 
         <Button Name="AddAnswerBtn" Content="Add Answer" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Height="30" Width="100" Background="Aqua" Click="AddAnswerBtn_Click"/>
+        <Button Name="ConfirmBtn" Content="Confirm Question" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="131,0,0,10" Height="30" Width="100" Background="LawnGreen" Click="ConfirmBtn_Click" />
 
         <StackPanel  Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Button FontSize="15"  Margin="10" Height="30" Content="Previous" Width="100" Name="PrevBtn" Click="PrevBtn_Click" />
