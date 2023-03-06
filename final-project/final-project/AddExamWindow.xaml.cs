@@ -124,7 +124,6 @@ namespace final_project
         {
             /*
              * Add the question content as image instead of text
-             * TODO: fix the image to show up in the QuestionContent StakPanel
              */
             if (this.ListBoxQuestions.Items.Count == 0) { return; }
             
@@ -138,7 +137,7 @@ namespace final_project
             {             
                 string name = dialog.FileName;
                 string fileName = System.IO.Path.GetFileName(name);
-                string location = Environment.CurrentDirectory;
+                string location = Environment.CurrentDirectory+fileName;
                 ContentTxt.Text = name;
                 File.Copy(name, location, true);
 
@@ -146,7 +145,7 @@ namespace final_project
                 question.imgPath = location;
                 question.content = string.Empty;
                 Image img = new Image();
-                img.Source = new BitmapImage(new Uri(question.imgPath));
+                img.Source = new BitmapImage(new Uri(question.imgPath));                
 
                 QuestionContent.Children.Add(img);
             }
@@ -159,22 +158,34 @@ namespace final_project
              * the data inserted             
              */
 
+            if(ListBoxQuestions.SelectedIndex == -1) { return; }
+
             // clear the question and answers fields
             OptionalAnswers.Children.Clear();
             ContentTxt.Clear();
+            for(int i=0;i< QuestionContent.Children.Count;i++)
+            {
+                if (QuestionContent.Children[i] is Image)
+                {
+                    QuestionContent.Children.RemoveAt(i);
+                }
+            }
 
             // get the currently selected index
             int index = ListBoxQuestions.SelectedIndex;
 
             if (this._questions[index].imgName != string.Empty)
             {
-                Image img = new Image();
-                img.Source = new BitmapImage(new Uri(this._questions[index].imgPath));
+                if (this._questions[index].answers.Count() >= 2)
+                {
+                    Image img = new Image();
+                    img.Source = new BitmapImage(new Uri(this._questions[index].imgPath));
 
-                ContentTxt.Text = this._questions[index].imgPath;
-                QuestionContent.Children.Add(img);
-            }
-            else
+                    ContentTxt.Text = this._questions[index].imgPath;
+                    QuestionContent.Children.Add(img);
+                }
+                }
+                else
             {
                 ContentTxt.Text = this._questions[index].content;
             }
@@ -235,21 +246,16 @@ namespace final_project
                 else if (OptionalAnswers.Children[j] is CheckBox)
                 {
                     CheckBox cb = (CheckBox)OptionalAnswers.Children[j];
-
-                    // NOTICE: for some reason the correct answer setter
-                    // doesn't work this way altough the checkboxes responsivety
-                    // works well. therefore the answers and questions content stores 
-                    // well but the correct answer is always false for each one of them.
-                    // TODO: find out why and solve it
+                    int cbIndex = j / 2;
 
                     if (cb.IsChecked == true)
                     {
-                        answer.correct_answer = true;
+                        this._answers[cbIndex].correct_answer = true;
                     }
 
                     else
                     {
-                        answer.correct_answer = false;
+                        this._answers[cbIndex].correct_answer = false;
                     }
 
                 }
