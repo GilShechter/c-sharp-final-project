@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,12 +33,43 @@ namespace final_project
         }
 
 
-        private void Login_Button_Click(object sender, RoutedEventArgs e)
+        private async void Login_Button_Click(object sender, RoutedEventArgs e)
         {
-            Student student = new Student("Gil", "207226317");
-            MainWindow main = new MainWindow(student);
-            main.Show();
-            this.Close();
+            string username = UsernameTextBox.Text;
+            string password = PasswordBox.Password.ToString();
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please insert username and password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            using (HttpClient client = new HttpClient())
+            {
+                var response = await client.GetAsync($"https://localhost:7002/api/Users/{username}");
+                response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
+                    string json = await response.Content.ReadAsStringAsync();
+                    User current = JsonConvert.DeserializeObject<User>(json);
+                    if (current != null)
+                    {
+                        if (current.Password == password)
+                        {
+                            MainWindow main = new MainWindow(current);
+                            main.Show();
+                            this.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Incorrect Password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("User not found", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }
         }
     }
 }

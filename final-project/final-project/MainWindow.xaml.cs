@@ -21,14 +21,17 @@ namespace final_project
     /// </summary>
     public partial class MainWindow : Window
     {
-        Student currentStudent;
+        User currentUser;
         List<Exam> examsList;
-        public MainWindow(Student student)
+        public MainWindow(User currentUser)
         {
             InitializeComponent();
-            currentStudent = student;
-            hello_msg.Text = $"Hello, {student.Name}";
-            Add_Exam_Button.Visibility = Visibility.Hidden;
+            this.currentUser = currentUser;
+            hello_msg.Text = $"Hello, {currentUser.Name}";
+            if (!currentUser.isTeacher)
+            {
+                Add_Exam_Button.Visibility = Visibility.Hidden;
+            }
             examsList = new List<Exam>();
             GetExams("");
         }
@@ -48,22 +51,10 @@ namespace final_project
                 {
                     string json = await response.Content.ReadAsStringAsync();
                     examsList = JsonConvert.DeserializeObject<List<Exam>>(json);
-                    if (keyWord == "")
+                    examsList = examsList.Where(exam => exam.Name.ToLower().Contains(keyWord.ToLower())).ToList<Exam>();
+                    foreach (Exam item in examsList)
                     {
-                        foreach (Exam item in examsList.ToList<Exam>())
-                        {
-                            this.ExamsList.Items.Add(item);
-                        }
-                    }
-                    else
-                    {
-                        examsList = examsList.Where(exam => exam.Name.Contains(keyWord)).ToList<Exam>();
-                        foreach (Exam item in examsList)
-                        {
-                            this.ExamsList.Items.Add(item);
-                        }
-
-
+                        this.ExamsList.Items.Add(item);
                     }
                 }
             }

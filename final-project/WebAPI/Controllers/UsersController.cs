@@ -27,15 +27,15 @@ namespace WebAPI.Controllers
             return await _dbContext.Users.ToListAsync();
         }
 
-        // GET: api/Users/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(string id)
+        // GET: api/Users/{username}
+        [HttpGet("{username}")]
+        public async Task<ActionResult<User>> GetUser(string username)
         {
             if (_dbContext.Users == null)
             {
                 return NotFound();
             }
-            var user = await _dbContext.Users.FindAsync(id);
+            var user = await _dbContext.Users.FindAsync(username);
 
             if (user == null)
             {

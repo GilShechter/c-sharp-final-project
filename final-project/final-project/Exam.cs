@@ -12,12 +12,12 @@ namespace final_project
         public string Id { get; set; }
         public string Name { get; set; }
         public DateTimeOffset DateTime { get; set; }
-        public Teacher Teacher { get; set; }
+        public User Teacher { get; set; }
         public int Duration { get; set; }
         public bool isRandom { get; set; }
         public List<Question> questions { get; set; }
 
-        public Exam(string name, DateTimeOffset dateTime, Teacher teacher, int duration, bool isRandom, List<Question> questions)
+        public Exam(string name, DateTimeOffset dateTime, User teacher, int duration, bool isRandom, List<Question> questions)
         {
             this.Id = Guid.NewGuid().ToString();
             this.Name = name;

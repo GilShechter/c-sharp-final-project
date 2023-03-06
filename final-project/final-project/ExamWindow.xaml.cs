@@ -39,7 +39,7 @@ namespace final_project
             questions.Add(question1);
             questions.Add(question2);
             questions.Add(question3);
-            Teacher teacher = new Teacher("Test", "test");
+            User teacher = new User("Test", "test", "test", true);
 
             this.exam = new Exam("Test", DateTime.Now, teacher, 90, false, questions);
 
