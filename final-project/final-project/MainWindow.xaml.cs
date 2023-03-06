@@ -66,5 +66,11 @@ namespace final_project
             this.ExamsList.Items.Clear();
             GetExams(keyWord);
         }
+
+        private void Start_Exam_Button_Click(object sender, RoutedEventArgs e)
+        {
+            ExamWindow examWindow = new ExamWindow();
+            examWindow.Show();
+        }
     }
 }

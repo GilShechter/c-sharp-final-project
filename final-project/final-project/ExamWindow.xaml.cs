@@ -78,6 +78,11 @@ namespace final_project
 
         private void ListBoxQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            /*
+             * Get the selected question from the ListBox and present it in
+             * the quesion appearance part of the screen. If the question already
+             * been answered restore the answer selected
+             */
             int i = 0;
             this.QuestionContent.Children.Clear();
             this.OptionalAnswers.Children.Clear();
@@ -142,8 +147,13 @@ namespace final_project
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * Next button functionality: go to the next question.
+             * If no question selected do nothing
+             */
             int selectedIndex = this.ListBoxQuestions.SelectedIndex;
-            if (selectedIndex != this.exam.questions.Count)
+            if (selectedIndex == -1) { return; }
+            if (selectedIndex != this.ListBoxQuestions.Items.Count)
             {
                 this.ListBoxQuestions.SelectedIndex = selectedIndex + 1;
             }
@@ -151,11 +161,25 @@ namespace final_project
 
         private void PrevBtn_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * Previous button functionality: go to the prev question.
+             * If no question selected do nothing
+             */
             int selectedIndex = this.ListBoxQuestions.SelectedIndex;
+            if (selectedIndex == -1) { return; }
             if (selectedIndex != 0)
             {
                 this.ListBoxQuestions.SelectedIndex = selectedIndex - 1;
             }
+        }
+
+        private void exitBtnClick(object sender, RoutedEventArgs e)
+        {
+            /*
+             * Exit button functionality: close the exam
+             * (might be changed to Finish button)
+             */
+            this.Close();
         }
     }
 }

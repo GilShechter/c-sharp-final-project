@@ -45,7 +45,6 @@ namespace final_project
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.GetAsync($"https://localhost:7002/api/Users/{username}");
-                response.EnsureSuccessStatusCode();
                 if (response.IsSuccessStatusCode)
                 {
                     string json = await response.Content.ReadAsStringAsync();
