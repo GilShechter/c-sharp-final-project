@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace final_project
         Exam exam;
         DispatcherTimer _timer;
         TimeSpan _time;
+        int correctAnswerCountt = 0;
         public ExamWindow(Exam exam)
         {
             InitializeComponent();
@@ -50,13 +52,32 @@ namespace final_project
             this.QuestionsNumberBox.Text = "0/" +
                 this.exam.questions.Count.ToString();
 
+            // check if the exam is random and re-sort the questions
+            if(this.exam.isRandom == true)
+            {
+                RandomSort(this.exam.questions);
+            }
+
             // add the questions to the questions listbox
             for (int i = 0; i < this.exam.questions.Count; i++)
             {
                 this.exam.questions[i].Id = i + 1;
                 this.ListBoxQuestions.Items.Add(exam.questions[i]);
             }
+        }
 
+        static void RandomSort<Question>(List<Question> questionsList)
+        {
+            Random random = new Random();
+            int n = questionsList.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                Question value = questionsList[k];
+                questionsList[k] = questionsList[n];
+                questionsList[n] = value;
+            }
         }
 
         private void ListBoxQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -161,7 +182,33 @@ namespace final_project
              * Exit button functionality: close the exam
              * (might be changed to Finish button)
              */
-            this.Close();
+
+            foreach( Question question in this.exam.questions )
+            {
+                if(question.answers[question.chosenAnswer].correct_answer == true)
+                {
+                    this.correctAnswerCountt++;
+                }
+            }
+
+            float pointsPerQuestion = 100/this.exam.questions.Count;
+            float finalGrade = this.correctAnswerCountt * pointsPerQuestion;
+
+            TextBlock tb = new TextBlock();
+            tb.Text = "Your grade is: "+ finalGrade.ToString();
+            tb.Width = 400;
+            tb.Height = 100;
+            tb.FontSize = 40;
+            
+            this.QuestionContent.Children.Clear();
+            this.OptionalAnswers.Children.Clear();
+
+            this.QuestionContent.Children.Add(tb);
+            /*
+             * Need to delay for few seconds
+             * this.Close();
+             */
+
         }
     }
 }
