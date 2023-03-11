@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace final_project
 {
@@ -36,7 +37,162 @@ namespace final_project
              * Button to add the exam we just created into the exams list
              * and exit this window
              */
+
+            // delete all empty questions
+            List<Question> tmp = new List<Question>();
+            foreach(Question question in this._questions)
+            {
+                if (question.content != string.Empty)
+                {
+                    tmp.Add(question);
+                }
+            }
+            this._questions = tmp;
+
+            // clear all the elements in the window
+            Window addExamWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == "AddExamWindow");
+
+            if (addExamWindow != null)
+            {
+                addExamWindow.Content = string.Empty;
+            }
+
+            // add a Grid for the empty window
+            Grid grid = new Grid();
+
+            // add the fields of the exam
+            Button submitBtn = new Button();
+            StackPanel stackPanel = new StackPanel();
+
+            // set StackPanel location
+            stackPanel.Margin = new Thickness(30);
+            stackPanel.HorizontalAlignment = HorizontalAlignment.Left;
+            stackPanel.VerticalAlignment = VerticalAlignment.Top;
+
+            // Stack Panel Conent
+            TextBox nameTB = new TextBox();
+            /* TextBox teacherNameTB = new TextBox(); */
+            DatePicker dateTB = new DatePicker();
+            TextBox durationTB = new TextBox();
+            CheckBox isRandomCheck = new CheckBox();
+
+            // add labels
+            Label namelbl = new Label();
+            /* Label teacherNamelbl = new Label(); */
+            Label datelbl = new Label();
+            Label durationlbl = new Label();
+
+            // set labels
+            namelbl.Content = "Exam's name:";
+            /* teacherNamelbl.Content = "Teacher's name:"; */
+            datelbl.Content = "Exam's date:";
+            durationlbl.Content = "Exam's duration:";                                    
+
+            // set nameTB
+            nameTB.Margin = new Thickness(5, 0, 0, 10);
+            nameTB.HorizontalAlignment = HorizontalAlignment.Left;
+            nameTB.Width = 400;
+            nameTB.Background = Brushes.LightGray;
+            nameTB.Name = "nameTB";
+
+            stackPanel.Children.Add(namelbl);
+            stackPanel.Children.Add(nameTB);
+
+            /*
+            // set teacherNameTB
+            teacherNameTB.Margin = new Thickness(5, 0, 0, 10);
+            teacherNameTB.HorizontalAlignment = HorizontalAlignment.Left;
+            teacherNameTB.Width = 400;
+            teacherNameTB.Background = Brushes.LightGray;
+            teacherNameTB.Name = "teacherNameTB";
+
+            stackPanel.Children.Add(teacherNamelbl);
+            stackPanel.Children.Add(teacherNameTB);
+            */
+
+            // set dateTB
+            dateTB.Margin = new Thickness(5, 0, 0, 10);
+            dateTB.HorizontalAlignment = HorizontalAlignment.Left;
+            dateTB.Width = 400;
+            dateTB.Background = Brushes.LightGray;
+            dateTB.Name = "dateTB";
+
+            stackPanel.Children.Add(datelbl);
+            stackPanel.Children.Add(dateTB);
+
+            // set durationTB
+            durationTB.Margin = new Thickness(5, 0, 0, 10);
+            durationTB.HorizontalAlignment = HorizontalAlignment.Left;
+            durationTB.Width = 400;
+            durationTB.Background = Brushes.LightGray;
+            durationTB.Name = "durationTB";
+
+            stackPanel.Children.Add(durationlbl);
+            stackPanel.Children.Add(durationTB);
+
+            // set isRandomCheck
+            isRandomCheck.Content = "Show answers randomally";
+            isRandomCheck.Margin = new Thickness(0, 0, 0, 10);
+            isRandomCheck.HorizontalAlignment = HorizontalAlignment.Left;
+
+            stackPanel.Children.Add(isRandomCheck);
+
+            // set submitBtn
+            submitBtn.Content = "Submit";
+            submitBtn.HorizontalAlignment = HorizontalAlignment.Right;
+            submitBtn.VerticalAlignment = VerticalAlignment.Bottom;
+            submitBtn.Margin = new Thickness(10);
+            submitBtn.Width = 80;
+            submitBtn.Height = 30;
+            submitBtn.Click += new RoutedEventHandler(SubmitBtn_Click);
+
+            void SubmitBtn_Click(object sender, RoutedEventArgs e)
+            {
+                /*
+                 * Final submition button click.
+                 */
+
+                // get all the content entered
+                string name;
+                DateTimeOffset dateTime;
+                int duration;
+                bool isRandom;
+                // Teacher teacher;
+
+                name = nameTB.Text;
+
+                DateTime selectedDate = dateTB.SelectedDate.Value;
+                TimeSpan offset = TimeZoneInfo.Local.GetUtcOffset(selectedDate);
+                dateTime = new DateTimeOffset(selectedDate, offset);
+
+                duration = int.Parse(durationTB.Text);
+
+                if (isRandomCheck.IsChecked == true)
+                {
+                    isRandom = true;
+                }
+                else
+                {
+                    isRandom = false;
+                }
+
+                // teacher = new Teacher(teacherNameTB.Text); needs id
+
+                // Adding hard coded teacher for the test:
+                Teacher teacher = new Teacher("Test", "12");
+
+                // adding the exam and closing the window                
+                Exam exam = new Exam(name, dateTime, teacher, duration, isRandom, this._questions);
+
+                this.Close();                
+            }
+
+            grid.Children.Add(submitBtn);
+            // add the StackPanel to the grid and display the grid
+            grid.Children.Add(stackPanel);
+            addExamWindow.Content = grid;
         }
+
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
