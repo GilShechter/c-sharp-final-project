@@ -433,6 +433,23 @@ namespace final_project
                 return;
             }
 
+            // check if there are no correct answers
+            bool correct_answer_found = false;
+
+            foreach(Answer ans in this._answers)
+            {
+                if(ans.correct_answer == true)
+                {
+                    correct_answer_found = true;
+                    break;
+                }
+            }
+            if (correct_answer_found == false)
+            {
+                this._answers.Clear();
+                return;
+            }
+
             // update the data
             if (this._questions[index].imgName == string.Empty)
             {

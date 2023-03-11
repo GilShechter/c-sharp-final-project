@@ -72,7 +72,7 @@ namespace final_project
 
             if (this.ListBoxQuestions.SelectedItem is Question q)
             {
-                if (q.imgName == "")
+                if (q.imgName == string.Empty)
                 {
                     TextBlock question = new TextBlock();
                     question.Text = q.content;
@@ -80,9 +80,8 @@ namespace final_project
                 }
                 else
                 {
-                    Image img = new Image();
-                    string location = q.imgPath + "/" + q.imgName;
-                    img.Source = new BitmapImage(new Uri(location));
+                    Image img = new Image();                    
+                    img.Source = new BitmapImage(new Uri(q.imgPath));
                     this.QuestionContent.Children.Add(img);
                 }
 
