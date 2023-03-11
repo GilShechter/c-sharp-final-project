@@ -23,27 +23,10 @@ namespace final_project
         Exam exam;
         DispatcherTimer _timer;
         TimeSpan _time;
-        public ExamWindow()
+        public ExamWindow(Exam exam)
         {
             InitializeComponent();
-            List<Question> questions = new List<Question>();
-
-            // Testing hardcoding
-
-            Answer answer1 = new Answer("Yes");
-            Answer answer2 = new Answer("No");
-            Answer[] answers = { answer1, answer2 };
-            Question question1 = new Question("Is this a test?", answers);
-            Question question2 = new Question("Are you okay?", answers);
-            Question question3 = new Question("Are you a human?", answers);
-            questions.Add(question1);
-            questions.Add(question2);
-            questions.Add(question3);
-            Teacher teacher = new Teacher("Test", "test");
-
-            this.exam = new Exam("Test", DateTime.Now, teacher, 90, false, questions);
-
-            // Testing finished
+            this.exam = exam;
 
             // Set Timer
             _time = TimeSpan.FromSeconds(exam.Duration * 60);

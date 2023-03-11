@@ -184,7 +184,11 @@ namespace final_project
                 // adding the exam and closing the window                
                 Exam exam = new Exam(name, dateTime, teacher, duration, isRandom, this._questions);
 
-                this.Close();                
+                ExamWindow examWindow = new ExamWindow(exam);
+                examWindow.Show();
+
+                this.Close();
+                
             }
 
             grid.Children.Add(submitBtn);
