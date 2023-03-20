@@ -39,7 +39,7 @@ namespace final_project
             }
 
             // update the count of the questions in the exam
-            QuestionsNumberBox.Text = (i + 1).ToString();
+            QuestionsNumberBox.Text = (ListBoxQuestions.Items.Count).ToString();
         }
 
         private void addExamBtn_Click(object sender, RoutedEventArgs e)
