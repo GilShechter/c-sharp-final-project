@@ -13,22 +13,33 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Xml.Linq;
 
 namespace final_project
 {
     /// <summary>
-    /// Interaction logic for AddExamWindow.xaml
+    /// Interaction logic for EditExamWindow.xaml
     /// </summary>
-    public partial class AddExamWindow : Window
+    public partial class EditExamWindow : Window
     {
+        private Exam exam;
         private List<Question> _questions;
         private List<Answer> _answers;
-        public AddExamWindow()
+
+        public EditExamWindow(Exam exam)
         {
             InitializeComponent();
+            this.exam = exam;
             this._questions = new List<Question>();
             this._answers = new List<Answer>();
+
+            foreach(Question question in this.exam.questions)
+            {
+                this._questions.Add(question);
+                ListBoxQuestions.Items.Add((Question)question);
+            }
+
+            // update the count of the questions in the exam
+            QuestionsNumberBox.Text = (i + 1).ToString();
         }
 
         private void addExamBtn_Click(object sender, RoutedEventArgs e)
@@ -40,7 +51,7 @@ namespace final_project
 
             // delete all empty questions
             List<Question> tmp = new List<Question>();
-            foreach(Question question in this._questions)
+            foreach (Question question in this._questions)
             {
                 if (question.content != string.Empty)
                 {
@@ -48,157 +59,10 @@ namespace final_project
                 }
             }
             this._questions = tmp;
+            this.exam.questions = this._questions;
 
-            // clear all the elements in the window
-            Window addExamWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Title == "AddExamWindow");
-
-            if (addExamWindow != null)
-            {
-                addExamWindow.Content = string.Empty;
-            }
-
-            // add a Grid for the empty window
-            Grid grid = new Grid();
-
-            // add the fields of the exam
-            Button submitBtn = new Button();
-            StackPanel stackPanel = new StackPanel();
-
-            // set StackPanel location
-            stackPanel.Margin = new Thickness(30);
-            stackPanel.HorizontalAlignment = HorizontalAlignment.Left;
-            stackPanel.VerticalAlignment = VerticalAlignment.Top;
-
-            // Stack Panel Conent
-            TextBox nameTB = new TextBox();
-            /* TextBox teacherNameTB = new TextBox(); */
-            DatePicker dateTB = new DatePicker();
-            TextBox durationTB = new TextBox();
-            CheckBox isRandomCheck = new CheckBox();
-
-            // add labels
-            Label namelbl = new Label();
-            /* Label teacherNamelbl = new Label(); */
-            Label datelbl = new Label();
-            Label durationlbl = new Label();
-
-            // set labels
-            namelbl.Content = "Exam's name:";
-            /* teacherNamelbl.Content = "Teacher's name:"; */
-            datelbl.Content = "Exam's date:";
-            durationlbl.Content = "Exam's duration:";                                    
-
-            // set nameTB
-            nameTB.Margin = new Thickness(5, 0, 0, 10);
-            nameTB.HorizontalAlignment = HorizontalAlignment.Left;
-            nameTB.Width = 400;
-            nameTB.Background = Brushes.LightGray;
-            nameTB.Name = "nameTB";
-
-            stackPanel.Children.Add(namelbl);
-            stackPanel.Children.Add(nameTB);
-
-            /*
-            // set teacherNameTB
-            teacherNameTB.Margin = new Thickness(5, 0, 0, 10);
-            teacherNameTB.HorizontalAlignment = HorizontalAlignment.Left;
-            teacherNameTB.Width = 400;
-            teacherNameTB.Background = Brushes.LightGray;
-            teacherNameTB.Name = "teacherNameTB";
-
-            stackPanel.Children.Add(teacherNamelbl);
-            stackPanel.Children.Add(teacherNameTB);
-            */
-
-            // set dateTB
-            dateTB.Margin = new Thickness(5, 0, 0, 10);
-            dateTB.HorizontalAlignment = HorizontalAlignment.Left;
-            dateTB.Width = 400;
-            dateTB.Background = Brushes.LightGray;
-            dateTB.Name = "dateTB";
-
-            stackPanel.Children.Add(datelbl);
-            stackPanel.Children.Add(dateTB);
-
-            // set durationTB
-            durationTB.Margin = new Thickness(5, 0, 0, 10);
-            durationTB.HorizontalAlignment = HorizontalAlignment.Left;
-            durationTB.Width = 400;
-            durationTB.Background = Brushes.LightGray;
-            durationTB.Name = "durationTB";
-
-            stackPanel.Children.Add(durationlbl);
-            stackPanel.Children.Add(durationTB);
-
-            // set isRandomCheck
-            isRandomCheck.Content = "Show answers randomally";
-            isRandomCheck.Margin = new Thickness(0, 0, 0, 10);
-            isRandomCheck.HorizontalAlignment = HorizontalAlignment.Left;
-
-            stackPanel.Children.Add(isRandomCheck);
-
-            // set submitBtn
-            submitBtn.Content = "Submit";
-            submitBtn.HorizontalAlignment = HorizontalAlignment.Right;
-            submitBtn.VerticalAlignment = VerticalAlignment.Bottom;
-            submitBtn.Margin = new Thickness(10);
-            submitBtn.Width = 80;
-            submitBtn.Height = 30;
-            submitBtn.Click += new RoutedEventHandler(SubmitBtn_Click);
-
-            void SubmitBtn_Click(object sender, RoutedEventArgs e)
-            {
-                /*
-                 * Final submition button click.
-                 */
-
-                // get all the content entered
-                string name;
-                DateTimeOffset dateTime;
-                int duration;
-                bool isRandom;
-                // Teacher teacher;
-
-                name = nameTB.Text;
-
-                DateTime selectedDate = dateTB.SelectedDate.Value;
-                TimeSpan offset = TimeZoneInfo.Local.GetUtcOffset(selectedDate);
-                dateTime = new DateTimeOffset(selectedDate, offset);
-
-                duration = int.Parse(durationTB.Text);
-
-                if (isRandomCheck.IsChecked == true)
-                {
-                    isRandom = true;
-                }
-                else
-                {
-                    isRandom = false;
-                }
-
-                // teacher = new Teacher(teacherNameTB.Text); needs id
-
-                // Adding hard coded teacher for the test:
-                Teacher teacher = new Teacher("Test", "12");
-
-                // adding the exam and closing the window                
-                Exam exam = new Exam(name, dateTime, teacher, duration, isRandom, this._questions);
-
-                /* Start of testing section. need to be deleted*/
-                ExamWindow examWindow = new ExamWindow(exam);
-                examWindow.Show();
-                /* End of testing section. don't delete the code following*/
-
-                this.Close();
-                
-            }
-
-            grid.Children.Add(submitBtn);
-            // add the StackPanel to the grid and display the grid
-            grid.Children.Add(stackPanel);
-            addExamWindow.Content = grid;
+            this.Close();
         }
-
 
         private void NextBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -235,7 +99,7 @@ namespace final_project
             /*
              * Button to add another question to the exam and show its empty fields.
              */
-            
+
             // Add an empty question
             int i = ListBoxQuestions.Items.Count;
 
@@ -265,10 +129,10 @@ namespace final_project
 
             TextBox tb = new TextBox();
             CheckBox cb = new CheckBox();
-            int numOfQuestions = (OptionalAnswers.Children.Count / 2)+1;
-            string name = "Answer"+numOfQuestions.ToString();
+            int numOfQuestions = (OptionalAnswers.Children.Count / 2) + 1;
+            string name = "Answer" + numOfQuestions.ToString();
 
-            tb.Margin=new Thickness(10);
+            tb.Margin = new Thickness(10);
             tb.HorizontalAlignment = HorizontalAlignment.Left;
             tb.Width = 400;
             tb.Background = Brushes.LightGray;
@@ -276,7 +140,7 @@ namespace final_project
 
             cb.Content = "Mark as correct answer";
             cb.Margin = new Thickness(0, 0, 0, 10);
-            cb.Name = name+"CheckBox";
+            cb.Name = name + "CheckBox";
 
             OptionalAnswers.Children.Add(tb);
             OptionalAnswers.Children.Add(cb);
@@ -288,7 +152,7 @@ namespace final_project
              * Add the question content as image instead of text
              */
             if (this.ListBoxQuestions.Items.Count == 0) { return; }
-            
+
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.InitialDirectory = "C:\\";
 
@@ -296,10 +160,10 @@ namespace final_project
             Question question = this._questions[index];
 
             if (dialog.ShowDialog() == true)
-            {             
+            {
                 string name = dialog.FileName;
                 string fileName = System.IO.Path.GetFileName(name);
-                string location = Environment.CurrentDirectory+fileName;
+                string location = Environment.CurrentDirectory + fileName;
                 ContentTxt.Text = name;
                 File.Copy(name, location, true);
 
@@ -307,7 +171,7 @@ namespace final_project
                 question.imgPath = location;
                 question.content = string.Empty;
                 Image img = new Image();
-                img.Source = new BitmapImage(new Uri(question.imgPath));                
+                img.Source = new BitmapImage(new Uri(question.imgPath));
 
                 QuestionContent.Children.Add(img);
             }
@@ -320,12 +184,12 @@ namespace final_project
              * the data inserted             
              */
 
-            if(ListBoxQuestions.SelectedIndex == -1) { return; }
+            if (ListBoxQuestions.SelectedIndex == -1) { return; }
 
             // clear the question and answers fields
             OptionalAnswers.Children.Clear();
             ContentTxt.Clear();
-            for(int i=0;i< QuestionContent.Children.Count;i++)
+            for (int i = 0; i < QuestionContent.Children.Count; i++)
             {
                 if (QuestionContent.Children[i] is Image)
                 {
@@ -346,8 +210,8 @@ namespace final_project
                     ContentTxt.Text = this._questions[index].imgPath;
                     QuestionContent.Children.Add(img);
                 }
-                }
-                else
+            }
+            else
             {
                 ContentTxt.Text = this._questions[index].content;
             }
@@ -390,7 +254,7 @@ namespace final_project
              * Button to confirm the question's fields modifications
              */
             int index = ListBoxQuestions.SelectedIndex;
-            Answer answer;            
+            Answer answer;
 
             for (int j = 0; j < this.OptionalAnswers.Children.Count; j++)
             {
@@ -438,9 +302,9 @@ namespace final_project
             // check if there are no correct answers
             bool correct_answer_found = false;
 
-            foreach(Answer ans in this._answers)
+            foreach (Answer ans in this._answers)
             {
-                if(ans.correct_answer == true)
+                if (ans.correct_answer == true)
                 {
                     correct_answer_found = true;
                     break;
