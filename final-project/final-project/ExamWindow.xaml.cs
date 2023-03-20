@@ -180,7 +180,7 @@ namespace final_project
         {
             /*
              * Exit button functionality: close the exam
-             * (might be changed to Finish button)
+             * (might be changed to Finish button)                         
              */
 
             foreach( Question question in this.exam.questions )
@@ -192,7 +192,13 @@ namespace final_project
             }
 
             float pointsPerQuestion = 100/this.exam.questions.Count;
-            float finalGrade = this.correctAnswerCountt * pointsPerQuestion;
+            int finalGrade = (int)Math.Ceiling(this.correctAnswerCountt * pointsPerQuestion);
+
+            /*
+             * NOTICE: this part is only for a test,
+             * the exam with the student's grade will send to the DB
+             * and won't be shown here. The exit button will send the grade and exit the exam's window                                       
+             */
 
             TextBlock tb = new TextBlock();
             tb.Text = "Your grade is: "+ finalGrade.ToString();
@@ -203,11 +209,7 @@ namespace final_project
             this.QuestionContent.Children.Clear();
             this.OptionalAnswers.Children.Clear();
 
-            this.QuestionContent.Children.Add(tb);
-            /*
-             * Need to delay for few seconds
-             * this.Close();
-             */
+            this.QuestionContent.Children.Add(tb);            
 
         }
     }
