@@ -56,10 +56,11 @@ namespace final_project
 
         private async void GetExams(string keyWord)
         {
+            // ************ This is an Exam of adding a new Exam to the database ************
+            /*  
+            
+            // Creating the new exam locally with questions, answers and teacher
             List<Question> questions = new List<Question>();
-
-            // Testing hardcoding
-
             Answer answer1 = new Answer("Yes", true);
             Answer answer2 = new Answer("No", false);
             List<Answer> answers = new List<Answer>();
@@ -87,11 +88,7 @@ namespace final_project
             var response1 = await client.PostAsync("Exam", content);
 
             // Handle the response
-            if (response1.IsSuccessStatusCode)
-            {
-                // The request was successful
-            }
-            else
+            if (!response1.IsSuccessStatusCode)
             {
                 // The request failed
                 var errorMessage = await response1.Content.ReadAsStringAsync();
@@ -99,9 +96,20 @@ namespace final_project
                 // Handle the error message
             }
 
+            */
+
+            // Getting all Exams from database and adding them to the examsList:
+
+            // Send the GET request
             var response = await client.GetStringAsync("Exam");
+
+            // Deserialize from JSON to Exams List
             examsList = JsonConvert.DeserializeObject<List<Exam>>(response);
+
+            // Filtering the examsList with the search-bar key word
             examsList = examsList.Where(exam => exam.Name.ToLower().Contains(keyWord.ToLower())).ToList<Exam>();
+
+            // For each exam in the list, add the exam to the ExamsList (The listbox in the xaml)
             foreach (Exam item in examsList)
             {
                 this.ExamsList.Items.Add(item);
