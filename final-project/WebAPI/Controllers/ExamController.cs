@@ -24,7 +24,10 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            return await _dbContext.Exams.ToListAsync();
+            return await _dbContext.Exams.Include("Students")
+                .Include("Questions")
+                .Include("Questions.Answers")
+                .ToListAsync();
         }
 
         // GET: api/Exams/{id}
@@ -52,7 +55,7 @@ namespace WebAPI.Controllers
             _dbContext.Exams.Add(exam);
             await _dbContext.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetExam), new { id = exam.Id }, exam);
+            return CreatedAtAction(nameof(GetExam), new { id = exam.ExamId }, exam);
         }
 
         // DELETE: api/Exams/{id}
@@ -80,7 +83,7 @@ namespace WebAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExam(int id, Exam exam)
         {
-            if (id != exam.Id)
+            if (id != exam.ExamId)
             {
                 return BadRequest();
             }
@@ -107,10 +110,10 @@ namespace WebAPI.Controllers
 
         private bool ExamExists(long id)
         {
-            return (_dbContext.Exams?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_dbContext.Exams?.Any(e => e.ExamId == id)).GetValueOrDefault();
         }
 
-        // GET: api/Exams/{QuestionsByExamID}
+/*        // GET: api/Exams/{QuestionsByExamID}
         [HttpGet("QuestionsByExamID")]
         public async Task<ActionResult<IEnumerable<Question>>> GetExamQuestions(int id)
         {
@@ -124,9 +127,9 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             return results;
-        }
+        }*/
 
-        // GET: api/Exams/{AnswersByQuestionID}
+/*        // GET: api/Exams/{AnswersByQuestionID}
         [HttpGet("AnswersByQuestionID")]
         public async Task<ActionResult<IEnumerable<Answer>>> GetQuestionAnswers(int id)
         {
@@ -140,7 +143,7 @@ namespace WebAPI.Controllers
                 return NotFound();
             }
             return results;
-        }
+        }*/
 
     }
 

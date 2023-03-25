@@ -12,12 +12,13 @@ namespace final_project
         public string imgPath { get; set; }
         public string imgName { get; set; }
         public int chosenAnswer { get; set; }
-        public Answer[] answers { get; set; }
-        public int Id { get; set; }
+        public ICollection<Answer> answers { get; set; }
+        public int? questionId { get; set; }
 
-        public Question(string content, Answer[] answers)
+        public Question() { }
+
+        public Question(string content, List<Answer> answers)
         {
-            Id = -1;
             this.content = content;
             this.imgPath = "";
             this.imgName = "";
@@ -25,18 +26,27 @@ namespace final_project
             this.chosenAnswer = -1;
         }
 
-        public Question(string imgPath, string imgName, Answer[] answers)
+        public Question(string imgPath, string imgName, List<Answer> answers)
         {
-            Id = -1;
             this.content = "";
             this.imgPath = imgPath;
             this.imgName = imgName;
             this.answers = answers;
             this.chosenAnswer = -1;
         }
+
+        public Question(string content, List<Answer> answers, int questionId)
+        {
+            this.content = content;
+            this.imgPath = "";
+            this.imgName = "";
+            this.answers = answers;
+            this.chosenAnswer = -1;
+            this.questionId = questionId;
+        }
         public override string ToString()
         {
-            return "Question " + this.Id.ToString();
+            return "Question " + this.questionId.ToString();
         }
     }
 }

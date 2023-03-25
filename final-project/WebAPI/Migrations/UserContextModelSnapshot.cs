@@ -22,16 +22,30 @@ namespace WebAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ExamUser", b =>
+                {
+                    b.Property<int>("ExamsExamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentsName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("ExamsExamId", "StudentsName");
+
+                    b.HasIndex("StudentsName");
+
+                    b.ToTable("ExamUser");
+                });
+
             modelBuilder.Entity("WebAPI.Models.Answer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AnswerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerId"));
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("CorrectAnswer")
@@ -40,7 +54,7 @@ namespace WebAPI.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AnswerId");
 
                     b.HasIndex("QuestionId");
 
@@ -49,11 +63,11 @@ namespace WebAPI.Migrations
 
             modelBuilder.Entity("WebAPI.Models.Exam", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ExamId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamId"));
 
                     b.Property<DateTimeOffset>("DateTime")
                         .HasColumnType("datetimeoffset");
@@ -67,47 +81,42 @@ namespace WebAPI.Migrations
 
                     b.Property<string>("TeacherName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isRandom")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("TeacherName");
+                    b.HasKey("ExamId");
 
                     b.ToTable("Exams");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Question", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int?>("QuestionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("QuestionId"));
 
                     b.Property<int>("ChosenAnswer")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ExamId")
+                    b.Property<int>("ExamID")
                         .HasColumnType("int");
 
                     b.Property<string>("ImgName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImgPath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("QuestionId");
 
-                    b.HasIndex("ExamId");
+                    b.HasIndex("ExamID");
 
                     b.ToTable("Questions");
                 });
@@ -116,9 +125,6 @@ namespace WebAPI.Migrations
                 {
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("ExamId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Id")
                         .IsRequired()
@@ -133,56 +139,45 @@ namespace WebAPI.Migrations
 
                     b.HasKey("Name");
 
-                    b.HasIndex("ExamId");
-
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ExamUser", b =>
+                {
+                    b.HasOne("WebAPI.Models.Exam", null)
+                        .WithMany()
+                        .HasForeignKey("ExamsExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebAPI.Models.Answer", b =>
                 {
-                    b.HasOne("WebAPI.Models.Question", "Question")
+                    b.HasOne("WebAPI.Models.Question", null)
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Question");
-                });
-
-            modelBuilder.Entity("WebAPI.Models.Exam", b =>
-                {
-                    b.HasOne("WebAPI.Models.User", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Question", b =>
                 {
-                    b.HasOne("WebAPI.Models.Exam", "Exam")
+                    b.HasOne("WebAPI.Models.Exam", null)
                         .WithMany("Questions")
-                        .HasForeignKey("ExamId")
+                        .HasForeignKey("ExamID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Exam");
-                });
-
-            modelBuilder.Entity("WebAPI.Models.User", b =>
-                {
-                    b.HasOne("WebAPI.Models.Exam", null)
-                        .WithMany("Students")
-                        .HasForeignKey("ExamId");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Exam", b =>
                 {
                     b.Navigation("Questions");
-
-                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Question", b =>

@@ -9,16 +9,6 @@ namespace WebAPI.Models
         public string Id { get; set; }
         public string Password { get; set; }
         public bool isTeacher { get; set; }
-        public override string ToString()
-        {
-            return this.Name;
-        }
-        public User(string name, string id, string password, bool isTeacher)
-        {
-            this.Name = name;
-            this.Id = id;
-            this.Password = password;
-            this.isTeacher = isTeacher;
-        }
+        public ICollection<Exam>? Exams { get; set; }
     }
 }

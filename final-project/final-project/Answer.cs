@@ -8,17 +8,19 @@ namespace final_project
 {
     public class Answer
     {
-        public string content { get; set; }
-        public bool correct_answer { get; set; }
+        public int AnswerId { get; set; }
+        public string Content { get; set; }
+        public bool CorrectAnswer { get; set; }
+
         public override string ToString()
         {
-            return this.content;
+            return this.Content;
         }
 
-        public Answer(String content)
+        public Answer(string Content, bool CorrectAnswer)
         {
-            this.content = content;
-            correct_answer = false;
+            this.Content = Content;
+            this.CorrectAnswer = CorrectAnswer;
         }
 
 

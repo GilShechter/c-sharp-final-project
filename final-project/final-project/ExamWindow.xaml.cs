@@ -23,27 +23,10 @@ namespace final_project
         Exam exam;
         DispatcherTimer _timer;
         TimeSpan _time;
-        public ExamWindow()
+        public ExamWindow(Exam exam)
         {
             InitializeComponent();
-            List<Question> questions = new List<Question>();
-
-            // Testing hardcoding
-
-            Answer answer1 = new Answer("Yes");
-            Answer answer2 = new Answer("No");
-            Answer[] answers = { answer1, answer2 };
-            Question question1 = new Question("Is this a test?", answers);
-            Question question2 = new Question("Are you okay?", answers);
-            Question question3 = new Question("Are you a human?", answers);
-            questions.Add(question1);
-            questions.Add(question2);
-            questions.Add(question3);
-            User teacher = new User("Test", "test", "test", true);
-
-            this.exam = new Exam("Test", DateTime.Now, teacher, 90, false, questions);
-
-            // Testing finished
+            this.exam = exam;
 
             // Set Timer
             _time = TimeSpan.FromSeconds(exam.Duration * 60);
@@ -65,13 +48,12 @@ namespace final_project
         {
             // init the number of answered questions to 0 out of num of questions
             this.QuestionsNumberBox.Text = "0/" +
-                this.exam.questions.Count.ToString();
+                this.exam.Questions.Count.ToString();
 
             // add the questions to the questions listbox
-            for (int i = 0; i < this.exam.questions.Count; i++)
+            foreach (Question q in this.exam.Questions)
             {
-                this.exam.questions[i].Id = i + 1;
-                this.ListBoxQuestions.Items.Add(exam.questions[i]);
+                this.ListBoxQuestions.Items.Add(q);
             }
 
         }
@@ -103,12 +85,13 @@ namespace final_project
                     this.QuestionContent.Children.Add(img);
                 }
 
-                for (int j = 0; j < q.answers.Length; j++)
+                foreach (Answer ans in q.answers)
                 {
-                    Answer answer = q.answers[j];
+                    int j = 0;
+                    Answer answer = ans;
                     RadioButton rb = new RadioButton()
                     {
-                        Content = answer.content,
+                        Content = answer.Content,
                     };
 
                     rb.Name = "Name" + (j.ToString());
@@ -118,7 +101,7 @@ namespace final_project
                         q.chosenAnswer = rb.Name[rb.Name.Length - 1] - '0';
                         int newCount = this.exam.getSolvedQuestionsCount();
                         this.QuestionsNumberBox.Text = newCount.ToString() +
-                        "/" + this.exam.questions.Count.ToString();
+                        "/" + this.exam.Questions.Count.ToString();
 
                     };
 
@@ -140,6 +123,7 @@ namespace final_project
                     }
 
                     OptionalAnswers.Children.Add(rb);
+                    j++;
 
                 }
             }

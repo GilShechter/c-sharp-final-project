@@ -24,7 +24,7 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            return await _dbContext.Users.ToListAsync();
+            return await _dbContext.Users.Include("Exams").ToListAsync();
         }
 
         // GET: api/Users/{username}

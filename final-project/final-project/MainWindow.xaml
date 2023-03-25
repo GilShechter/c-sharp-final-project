@@ -26,10 +26,10 @@
                     <TextBox Name="Search_bar" Width="300" Margin="10" Height="30" VerticalContentAlignment="Center" TextChanged="TextBox_TextChanged" />
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="20">
-                    <ListBox Name="ExamsList" Height="150" Background="WhiteSmoke"></ListBox>
+                    <ListBox Name="ExamsList" Height="150" Background="WhiteSmoke" SelectionChanged="ExamsList_SelectionChanged"></ListBox>
                 </StackPanel>
-                <Button Name="Start_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="Start_Exam_Button_Click">Start Exam</Button>
-                <Button Name="View_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="View_Exam_Button_Click">View Exam</Button>
+                <Button Name="Start_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="Start_Exam_Button_Click" IsEnabled="False">Start Exam</Button>
+                <Button Name="View_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="View_Exam_Button_Click" IsEnabled="False">View Exam</Button>
 
             </Grid>
 
