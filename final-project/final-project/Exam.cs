@@ -21,7 +21,6 @@ namespace final_project
         public Exam() { }
         public Exam(string name, DateTimeOffset dateTime, User teacher, int duration, bool isRandom, List<Question> questions)
         {
-            this.Id = Guid.NewGuid().GetHashCode();
             this.Name = name;
             this.DateTime = dateTime.Date;
             this.TeacherName = teacher.Name;
@@ -33,7 +32,6 @@ namespace final_project
 
         public Exam(string name, DateTimeOffset dateTime, string teacher, int duration, bool isRandom, List<Question> questions)
         {
-            this.Id = Guid.NewGuid().GetHashCode();
             this.Name = name;
             this.DateTime = dateTime.Date;
             this.TeacherName = teacher;
@@ -61,7 +59,7 @@ namespace final_project
             string nameCol = (this.Name.Length - 70).ToString();
             string durationCol = (this.Duration.ToString().Length - 10).ToString();
             string teacherCol = (this.TeacherName.Length - 70).ToString();
-            return string.Format("{0,"+nameCol+"}{1,"+durationCol+"}{2,"+teacherCol+"}{3,10}",
+            return string.Format("{0," + nameCol + "}{1," + durationCol + "}{2," + teacherCol + "}{3,10}",
             this.Name, this.Duration, this.TeacherName, this.DateTime.Date);
         }
     }

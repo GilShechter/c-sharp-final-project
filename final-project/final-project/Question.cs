@@ -35,15 +35,6 @@ namespace final_project
             this.chosenAnswer = -1;
         }
 
-        public Question(string content, List<Answer> answers, int questionId)
-        {
-            this.content = content;
-            this.imgPath = "";
-            this.imgName = "";
-            this.answers = answers;
-            this.chosenAnswer = -1;
-            this.questionId = questionId;
-        }
         public override string ToString()
         {
             return "Question " + this.questionId.ToString();

@@ -184,7 +184,7 @@ namespace final_project
 
 
                 // adding the exam and closing the window
-                Exam exam = new Exam(name, dateTime, currentUser, duration, isRandom, this._questions);
+                Exam exam = new Exam(name, dateTime, currentUser.Name, duration, isRandom, this._questions);
 
                 Submit(exam);
 
@@ -210,6 +210,14 @@ namespace final_project
 
             // Send the POST request
             var response = await client.PostAsync("Exam", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // The request failed
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                MessageBox.Show(errorMessage);
+                // Handle the error message
+            }
         }
 
 
