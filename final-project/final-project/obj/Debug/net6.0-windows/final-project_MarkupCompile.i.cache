@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\App.xaml
-32146734742
+62051012862
 
-11-159250516
+15-701291813
 197427662777
-ExamWindow.xaml;LoginWindow.xaml;MainWindow.xaml;
+AddExamWindow.xaml;EditExamWindow.xaml;ExamWindow.xaml;LoginWindow.xaml;MainWindow.xaml;StatisticsWindow.xaml;
 
-False
+True
 

@@ -51,7 +51,8 @@ namespace final_project
 
         private void Add_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            AddExamWindow addExamWindow = new AddExamWindow(currentUser);
+            addExamWindow.Show();
         }
 
         private async void GetExams(string keyWord)
@@ -114,7 +115,7 @@ namespace final_project
             {
                 this.ExamsList.Items.Add(item);
             }
-               
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -126,13 +127,14 @@ namespace final_project
 
         private void Start_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
-            ExamWindow examWindow = new ExamWindow(this.selectedExam);
+            ExamWindow examWindow = new ExamWindow(this.selectedExam, this.currentUser);
             examWindow.Show();
         }
 
         private void View_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            StatisticsWindow statisticsWindow = new StatisticsWindow(this.selectedExam);
+            statisticsWindow.Show();
         }
 
         private void ExamsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -140,12 +142,20 @@ namespace final_project
             if (currentUser.IsTeacher)
             {
                 View_Exam_Button.IsEnabled = true;
+                Edit_Exam_Button.Visibility = Visibility.Visible;
+                Edit_Exam_Button.IsEnabled = true;
             }
             else
             {
                 Start_Exam_Button.IsEnabled = true;
             }
             this.selectedExam = (Exam)ExamsList.SelectedItem;
+        }
+
+        private void Edit_Exam_Button_Click(object sender, RoutedEventArgs e)
+        {
+            EditExamWindow editExamWindow = new EditExamWindow((Exam)ExamsList.SelectedItem);
+            editExamWindow.Show();
         }
     }
 }

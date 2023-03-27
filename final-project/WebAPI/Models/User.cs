@@ -9,6 +9,6 @@ namespace WebAPI.Models
         public string Id { get; set; }
         public string Password { get; set; }
         public bool isTeacher { get; set; }
-        public ICollection<Exam>? Exams { get; set; }
+        public ICollection<ExamUser>? examUser { get; set; }
     }
 }

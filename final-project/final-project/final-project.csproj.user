@@ -7,14 +7,29 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="AddExamWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="EditExamWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ExamWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="MainWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="StatisticsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="AddExamWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="EditExamWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="ExamWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -22,6 +37,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StatisticsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

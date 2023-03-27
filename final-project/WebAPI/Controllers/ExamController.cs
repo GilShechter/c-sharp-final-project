@@ -24,9 +24,9 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            return await _dbContext.Exams.Include("Students")
-                .Include("Questions")
+            return await _dbContext.Exams.Include("Questions")
                 .Include("Questions.Answers")
+                .Include("examUser")
                 .ToListAsync();
         }
 
@@ -113,37 +113,37 @@ namespace WebAPI.Controllers
             return (_dbContext.Exams?.Any(e => e.ExamId == id)).GetValueOrDefault();
         }
 
-/*        // GET: api/Exams/{QuestionsByExamID}
-        [HttpGet("QuestionsByExamID")]
-        public async Task<ActionResult<IEnumerable<Question>>> GetExamQuestions(int id)
-        {
-            if (_dbContext.Exams == null)
-            {
-                return NotFound();
-            }
-            List<Question> results = await _dbContext.Questions.Include(q => q.Exam.Id == id).ToListAsync();
-            if (results.Count == 0)
-            {
-                return NotFound();
-            }
-            return results;
-        }*/
+        /*        // GET: api/Exams/{QuestionsByExamID}
+                [HttpGet("QuestionsByExamID")]
+                public async Task<ActionResult<IEnumerable<Question>>> GetExamQuestions(int id)
+                {
+                    if (_dbContext.Exams == null)
+                    {
+                        return NotFound();
+                    }
+                    List<Question> results = await _dbContext.Questions.Include(q => q.Exam.Id == id).ToListAsync();
+                    if (results.Count == 0)
+                    {
+                        return NotFound();
+                    }
+                    return results;
+                }*/
 
-/*        // GET: api/Exams/{AnswersByQuestionID}
-        [HttpGet("AnswersByQuestionID")]
-        public async Task<ActionResult<IEnumerable<Answer>>> GetQuestionAnswers(int id)
-        {
-            if (_dbContext == null)
-            {
-                return NotFound();
-            }
-            List<Answer> results = await _dbContext.Answers.Include(a => a.Question.Id == id).ToListAsync();
-            if (results.Count == 0)
-            {
-                return NotFound();
-            }
-            return results;
-        }*/
+        /*        // GET: api/Exams/{AnswersByQuestionID}
+                [HttpGet("AnswersByQuestionID")]
+                public async Task<ActionResult<IEnumerable<Answer>>> GetQuestionAnswers(int id)
+                {
+                    if (_dbContext == null)
+                    {
+                        return NotFound();
+                    }
+                    List<Answer> results = await _dbContext.Answers.Include(a => a.Question.Id == id).ToListAsync();
+                    if (results.Count == 0)
+                    {
+                        return NotFound();
+                    }
+                    return results;
+                }*/
 
     }
 

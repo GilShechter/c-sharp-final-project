@@ -30,6 +30,7 @@
                 </StackPanel>
                 <Button Name="Start_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="Start_Exam_Button_Click" IsEnabled="False">Start Exam</Button>
                 <Button Name="View_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="View_Exam_Button_Click" IsEnabled="False">View Exam</Button>
+                <Button Name="Edit_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,120,3" Grid.RowSpan="2" Click="Edit_Exam_Button_Click" IsEnabled="False" Visibility="Hidden" >Edit Exam</Button>
 
             </Grid>
 

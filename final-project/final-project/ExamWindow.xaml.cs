@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,12 +22,17 @@ namespace final_project
     public partial class ExamWindow : Window
     {
         Exam exam;
+        User currentUser;
+        ExamUser examUser;
         DispatcherTimer _timer;
         TimeSpan _time;
-        public ExamWindow(Exam exam)
+        int correctAnswerCountt = 0;
+        public ExamWindow(Exam exam, User currentUser)
         {
             InitializeComponent();
             this.exam = exam;
+            this.currentUser = currentUser;
+            this.examUser = new ExamUser(exam, currentUser);
 
             // Set Timer
             _time = TimeSpan.FromSeconds(exam.Duration * 60);
@@ -50,12 +56,29 @@ namespace final_project
             this.QuestionsNumberBox.Text = "0/" +
                 this.exam.Questions.Count.ToString();
 
-            // add the questions to the questions listbox
-            foreach (Question q in this.exam.Questions)
+            // check if the exam is random and re-sort the questions
+            if (this.exam.isRandom == true)
             {
-                this.ListBoxQuestions.Items.Add(q);
+                RandomSort(this.exam.Questions);
             }
 
+            // add the questions to the questions listbox
+            for (int i = 0; i < this.exam.Questions.Count; i++)
+            {
+                this.exam.Questions.ElementAt(i).questionId = i + 1;
+                this.ListBoxQuestions.Items.Add(this.exam.Questions.ElementAt(i));
+            }
+        }
+
+        static void RandomSort<T>(ICollection<T> collection)
+        {
+            Random random = new Random();
+            List<T> list = collection.OrderBy(x => random.Next()).ToList();
+            collection.Clear();
+            foreach (T item in list)
+            {
+                collection.Add(item);
+            }
         }
 
         private void ListBoxQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -71,7 +94,7 @@ namespace final_project
 
             if (this.ListBoxQuestions.SelectedItem is Question q)
             {
-                if (q.imgName == "")
+                if (q.imgName == string.Empty)
                 {
                     TextBlock question = new TextBlock();
                     question.Text = q.content;
@@ -80,19 +103,16 @@ namespace final_project
                 else
                 {
                     Image img = new Image();
-                    string location = q.imgPath + "/" + q.imgName;
-                    img.Source = new BitmapImage(new Uri(location));
+                    img.Source = new BitmapImage(new Uri(q.imgPath));
                     this.QuestionContent.Children.Add(img);
                 }
 
-                foreach (Answer ans in q.answers)
+                for (int j = 0; j < q.answers.Count; j++)
                 {
-                    int j = 0;
-                    Answer answer = ans;
-                    RadioButton rb = new RadioButton()
-                    {
-                        Content = answer.Content,
-                    };
+                    Answer answer = q.answers.ElementAt(j);
+                    RadioButton rb = new RadioButton();
+
+                    rb.Content = answer.Content;
 
                     rb.Name = "Name" + (j.ToString());
 
@@ -123,7 +143,6 @@ namespace final_project
                     }
 
                     OptionalAnswers.Children.Add(rb);
-                    j++;
 
                 }
             }
@@ -161,8 +180,29 @@ namespace final_project
         {
             /*
              * Exit button functionality: close the exam
-             * (might be changed to Finish button)
+             * (might be changed to Finish button)                         
              */
+            if (this.exam.Questions.Count > 0)
+            {
+                foreach (Question question in this.exam.Questions)
+                {
+                    if (question.answers.ElementAt(question.chosenAnswer).CorrectAnswer == true)
+                    {
+                        this.correctAnswerCountt++;
+                    }
+                }
+            }
+
+            float pointsPerQuestion = 0;
+            if (this.exam.Questions.Count != 0)
+            {
+                pointsPerQuestion = 100 / this.exam.Questions.Count;
+            }
+
+            int finalGrade = (int)Math.Ceiling(this.correctAnswerCountt * pointsPerQuestion);
+
+            this.examUser.Grade = finalGrade;
+
             this.Close();
         }
     }

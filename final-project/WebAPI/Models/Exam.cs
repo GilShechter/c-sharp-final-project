@@ -9,7 +9,7 @@
         public int Duration { get; set; }
         public bool isRandom { get; set; }
         public ICollection<Question> Questions { get; set; }
-        public ICollection<User> Students { get; set; }
+        public ICollection<ExamUser>? examUser { get; set; }
 
     }
 }

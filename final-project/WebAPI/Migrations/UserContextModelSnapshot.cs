@@ -22,21 +22,6 @@ namespace WebAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ExamUser", b =>
-                {
-                    b.Property<int>("ExamsExamId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentsName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("ExamsExamId", "StudentsName");
-
-                    b.HasIndex("StudentsName");
-
-                    b.ToTable("ExamUser");
-                });
-
             modelBuilder.Entity("WebAPI.Models.Answer", b =>
                 {
                     b.Property<int>("AnswerId")
@@ -91,6 +76,33 @@ namespace WebAPI.Migrations
                     b.ToTable("Exams");
                 });
 
+            modelBuilder.Entity("WebAPI.Models.ExamUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<string>("userName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExamId");
+
+                    b.HasIndex("userName");
+
+                    b.ToTable("ExamUsers");
+                });
+
             modelBuilder.Entity("WebAPI.Models.Question", b =>
                 {
                     b.Property<int?>("QuestionId")
@@ -142,26 +154,26 @@ namespace WebAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ExamUser", b =>
-                {
-                    b.HasOne("WebAPI.Models.Exam", null)
-                        .WithMany()
-                        .HasForeignKey("ExamsExamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebAPI.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebAPI.Models.Answer", b =>
                 {
                     b.HasOne("WebAPI.Models.Question", null)
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WebAPI.Models.ExamUser", b =>
+                {
+                    b.HasOne("WebAPI.Models.Exam", null)
+                        .WithMany("examUser")
+                        .HasForeignKey("ExamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebAPI.Models.User", null)
+                        .WithMany("examUser")
+                        .HasForeignKey("userName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -178,11 +190,18 @@ namespace WebAPI.Migrations
             modelBuilder.Entity("WebAPI.Models.Exam", b =>
                 {
                     b.Navigation("Questions");
+
+                    b.Navigation("examUser");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Question", b =>
                 {
                     b.Navigation("Answers");
+                });
+
+            modelBuilder.Entity("WebAPI.Models.User", b =>
+                {
+                    b.Navigation("examUser");
                 });
 #pragma warning restore 612, 618
         }

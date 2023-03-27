@@ -12,12 +12,11 @@ namespace final_project
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTimeOffset DateTime { get; set; }
-/*        public User Teacher { get; private set; }
-*/        public string TeacherName { get; set; }
+        public string TeacherName { get; set; }
         public int Duration { get; set; }
         public bool isRandom { get; set; }
         public ICollection<Question> Questions { get; set; }
-        public ICollection<User> Students { get; set; }
+        public ICollection<ExamUser>? examUser { get; set; }
 
         public Exam() { }
         public Exam(string name, DateTimeOffset dateTime, User teacher, int duration, bool isRandom, List<Question> questions)
@@ -29,7 +28,7 @@ namespace final_project
             this.Duration = duration;
             this.isRandom = isRandom;
             this.Questions = questions;
-            this.Students = new List<User>();
+            this.examUser = new List<ExamUser>();
         }
 
         public Exam(string name, DateTimeOffset dateTime, string teacher, int duration, bool isRandom, List<Question> questions)
@@ -41,7 +40,7 @@ namespace final_project
             this.Duration = duration;
             this.isRandom = isRandom;
             this.Questions = questions;
-            this.Students = new List<User>();
+            this.examUser = new List<ExamUser>();
         }
 
         public int getSolvedQuestionsCount()

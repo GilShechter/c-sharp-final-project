@@ -12,5 +12,6 @@ namespace WebAPI.Models
         public DbSet<Exam> Exams { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<ExamUser> ExamUsers { get; set; }
     }
 }

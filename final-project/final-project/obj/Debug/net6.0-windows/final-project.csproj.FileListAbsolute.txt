@@ -46,3 +46,9 @@ C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\System.Net.Http.Formatting.dll
 C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\bin\Debug\net6.0-windows\Newtonsoft.Json.Bson.dll
+C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\AddExamWindow.g.cs
+C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\EditExamWindow.g.cs
+C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\StatisticsWindow.g.cs
+C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\AddExamWindow.baml
+C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\EditExamWindow.baml
+C:\Users\gilsh\OneDrive\Desktop\Computer Science\C#\c-sharp-final-project\final-project\final-project\obj\Debug\net6.0-windows\StatisticsWindow.baml
