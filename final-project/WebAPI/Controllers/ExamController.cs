@@ -38,7 +38,10 @@ namespace WebAPI.Controllers
             {
                 return NotFound();
             }
-            var exam = await _dbContext.Exams.FindAsync(id);
+            var exam = await _dbContext.Exams
+                .Include("Questions")
+                .Include("Questions.Answers")
+                .Include("examUser").FirstOrDefaultAsync(x => x.ExamId == id);
 
             if (exam == null)
             {

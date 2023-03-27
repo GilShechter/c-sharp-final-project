@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,10 +26,12 @@ namespace final_project
         private Exam exam;
         private List<Question> _questions;
         private List<Answer> _answers;
+        HttpClient client = new HttpClient();
 
         public EditExamWindow(Exam exam)
         {
             InitializeComponent();
+            client.BaseAddress = new Uri("https://localhost:7002/api/");
             this.exam = exam;
             this._questions = new List<Question>();
             this._answers = new List<Answer>();
@@ -60,6 +64,18 @@ namespace final_project
             }
             this._questions = tmp;
             this.exam.Questions = this._questions;
+
+            // Serialize the object to JSON
+            var json = JsonConvert.SerializeObject(exam);
+
+            // Create the request content
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "endpoint");
+            request.Content = content;
+
+            // Send the POST request
+            var response = client.PutAsync($"Exam/{exam.Id}", content);
 
             this.Close();
         }

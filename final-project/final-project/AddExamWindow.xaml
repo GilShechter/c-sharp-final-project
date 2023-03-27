@@ -38,7 +38,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Button Name="addExamBtn" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Add Exam" Grid.Row="0" Margin="10" Height="30" Width="80" Click="addExamBtn_Click"/>
+            <Button Name="addExamBtn" FontSize="10" HorizontalAlignment="Left" Content="Add Exam" Grid.Row="0" Margin="510,10,0,10" Width="80" Click="addExamBtn_Click"/>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Height="150">
                 <StackPanel Name="QuestionContent" Margin="10,10,10,10">
                     <Label Name="Contentlbl" Content="Question: " HorizontalAlignment="Left" />

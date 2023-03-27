@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,9 +27,11 @@ namespace final_project
         private List<Question> _questions;
         private List<Answer> _answers;
         User currentUser;
+        HttpClient client = new HttpClient();
         public AddExamWindow(User currentUser)
         {
             InitializeComponent();
+            client.BaseAddress = new Uri("https://localhost:7002/api/");
             this._questions = new List<Question>();
             this._answers = new List<Answer>();
             this.currentUser = currentUser;
@@ -133,7 +137,7 @@ namespace final_project
             stackPanel.Children.Add(durationTB);
 
             // set isRandomCheck
-            isRandomCheck.Content = "Show answers randomally";
+            isRandomCheck.Content = "Show questions randomally";
             isRandomCheck.Margin = new Thickness(0, 0, 0, 10);
             isRandomCheck.HorizontalAlignment = HorizontalAlignment.Left;
 
@@ -182,7 +186,7 @@ namespace final_project
                 // adding the exam and closing the window
                 Exam exam = new Exam(name, dateTime, currentUser, duration, isRandom, this._questions);
 
-                // NOTICE: need to add the new exam to the exams list in the DB, that way it would be shown in the MainWindow
+                Submit(exam);
 
                 this.Close();
             }
@@ -191,6 +195,21 @@ namespace final_project
             // add the StackPanel to the grid and display the grid
             grid.Children.Add(stackPanel);
             addExamWindow.Content = grid;
+        }
+
+        private async void Submit(Exam exam)
+        {
+            // Serialize the object to JSON
+            var json = JsonConvert.SerializeObject(exam);
+
+            // Create the request content
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "endpoint");
+            request.Content = content;
+
+            // Send the POST request
+            var response = await client.PostAsync("Exam", content);
         }
 
 

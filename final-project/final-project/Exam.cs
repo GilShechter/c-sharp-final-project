@@ -58,7 +58,11 @@ namespace final_project
 
         public override string ToString()
         {
-            return $"{this.Name} \t\t {this.Duration} mins \t\t Teacher: {this.TeacherName} \t\t Starts at: {this.DateTime.Date} {this.DateTime.TimeOfDay}";
+            string nameCol = (this.Name.Length - 70).ToString();
+            string durationCol = (this.Duration.ToString().Length - 10).ToString();
+            string teacherCol = (this.TeacherName.Length - 70).ToString();
+            return string.Format("{0,"+nameCol+"}{1,"+durationCol+"}{2,"+teacherCol+"}{3,10}",
+            this.Name, this.Duration, this.TeacherName, this.DateTime.Date);
         }
     }
 }
