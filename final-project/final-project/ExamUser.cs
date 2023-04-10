@@ -16,14 +16,12 @@ namespace final_project
         public ExamUser() { }
         public ExamUser(Exam exam, User user, int grade)
         {
-            this.Id = Guid.NewGuid().GetHashCode();
             this.ExamId = exam.ExamId;
             this.userName = user.Name;
             Grade = grade;
         }
         public ExamUser(Exam exam, User user)
         {
-            this.Id = Guid.NewGuid().GetHashCode();
             this.ExamId = exam.ExamId;
             this.userName = user.Name;
             Grade = 0;
