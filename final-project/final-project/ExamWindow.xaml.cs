@@ -62,11 +62,15 @@ namespace final_project
                 RandomSort(this.exam.Questions);
             }
 
+            int j = 1;
             // add the questions to the questions listbox
             for (int i = 0; i < this.exam.Questions.Count; i++)
             {
-                this.exam.Questions.ElementAt(i).questionId = i + 1;
-                this.ListBoxQuestions.Items.Add(this.exam.Questions.ElementAt(i));
+                if (this.exam.Questions.ElementAt(i).answers.Count > 0)
+                {
+                    this.exam.Questions.ElementAt(i).questionId = j++;
+                    this.ListBoxQuestions.Items.Add(this.exam.Questions.ElementAt(i));
+                }
             }
         }
 
@@ -184,7 +188,7 @@ namespace final_project
              */
             if (this.exam.Questions.Count > 0)
             {
-                foreach (Question question in this.exam.Questions)
+                foreach (Question question in this.ListBoxQuestions.Items)
                 {
                     if (question.answers.ElementAt(question.chosenAnswer).CorrectAnswer == true)
                     {
@@ -196,7 +200,7 @@ namespace final_project
             float pointsPerQuestion = 0;
             if (this.exam.Questions.Count != 0)
             {
-                pointsPerQuestion = 100 / this.exam.Questions.Count;
+                pointsPerQuestion = 100 / this.ListBoxQuestions.Items.Count;
             }
 
             int finalGrade = (int)Math.Ceiling(this.correctAnswerCountt * pointsPerQuestion);

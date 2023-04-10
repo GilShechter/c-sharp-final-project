@@ -45,22 +45,31 @@ namespace final_project
             int lowestGrade = 100;
             float averageGrade = 0;
 
-            for (int i = 0; i < grades.Count; i++)
+            if (grades.Count > 0)
             {
-                averageGrade += grades[i];
-
-                if (grades[i] > highestGrade)
+                for (int i = 0; i < grades.Count; i++)
                 {
-                    highestGrade = grades[i];
+                    averageGrade += grades[i];
+
+                    if (grades[i] > highestGrade)
+                    {
+                        highestGrade = grades[i];
+                    }
+
+                    if (grades[i] < lowestGrade)
+                    {
+                        lowestGrade = grades[i];
+                    }
                 }
 
-                if (grades[i] < lowestGrade)
-                {
-                    lowestGrade = grades[i];
-                }
+                averageGrade = averageGrade / grades.Count;
+            }
+            else
+            {
+                averageGrade = 0;
+                lowestGrade = 0;
             }
 
-            averageGrade = averageGrade / grades.Count;
 
             // set the TextBlocks to show the information
             highestGradeTB.Text = highestGrade.ToString();
