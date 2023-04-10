@@ -38,15 +38,19 @@ namespace final_project
 
             foreach (Question question in this.exam.Questions)
             {
-                this._questions.Add(question);
-                ListBoxQuestions.Items.Add((Question)question);
+                if (question.answers.Count > 0)
+                {
+                    this._questions.Add(question);
+                    ListBoxQuestions.Items.Add((Question)question);
+                }
+                
             }
 
             // update the count of the questions in the exam
             QuestionsNumberBox.Text = (ListBoxQuestions.Items.Count).ToString();
         }
 
-        private void addExamBtn_Click(object sender, RoutedEventArgs e)
+        private async void addExamBtn_Click(object sender, RoutedEventArgs e)
         {
             /*
              * Button to add the exam we just created into the exams list
@@ -74,8 +78,22 @@ namespace final_project
             var request = new HttpRequestMessage(HttpMethod.Post, "endpoint");
             request.Content = content;
 
-            // Send the POST request
-            var response = client.PutAsync($"Exam/{exam.Id}", content);
+            /*            // Send the DELETE request
+                        var response = await client.DeleteAsync($"Exam/{exam.ExamId}");
+
+                        // Send the POST request
+                        response = await client.PostAsync("Exam", content);*/
+
+            // Send the PUT requese
+            var response = await client.PutAsync($"Exam/{exam.ExamId}", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // The request failed
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                MessageBox.Show(errorMessage);
+                // Handle the error message
+            }
 
             this.Close();
         }

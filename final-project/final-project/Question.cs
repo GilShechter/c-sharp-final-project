@@ -14,6 +14,7 @@ namespace final_project
         public int chosenAnswer { get; set; }
         public ICollection<Answer> answers { get; set; }
         public int? questionId { get; set; }
+        public int ExamID { get; set; }
 
         public Question() { }
 

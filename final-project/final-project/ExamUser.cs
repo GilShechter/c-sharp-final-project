@@ -9,7 +9,7 @@ namespace final_project
     public class ExamUser
     {
         public int Id { get; set; }
-        public int ExamId { get; set; }
+        public int? ExamId { get; set; }
         public string userName { get; set; }
         public int Grade { get; set; }
 
@@ -17,14 +17,14 @@ namespace final_project
         public ExamUser(Exam exam, User user, int grade)
         {
             this.Id = Guid.NewGuid().GetHashCode();
-            this.ExamId = exam.Id;
+            this.ExamId = exam.ExamId;
             this.userName = user.Name;
             Grade = grade;
         }
         public ExamUser(Exam exam, User user)
         {
             this.Id = Guid.NewGuid().GetHashCode();
-            this.ExamId = exam.Id;
+            this.ExamId = exam.ExamId;
             this.userName = user.Name;
             Grade = 0;
         }

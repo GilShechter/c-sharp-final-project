@@ -261,7 +261,7 @@ namespace final_project
             int i = ListBoxQuestions.Items.Count;
 
             Question question = new Question("", this._answers);
-            question.questionId = ListBoxQuestions.Items.Count + 1;
+         /*   question.questionId = ListBoxQuestions.Items.Count + 1;*/
             this._questions.Add(question);
 
             ListBoxQuestions.Items.Add((Question)question);
