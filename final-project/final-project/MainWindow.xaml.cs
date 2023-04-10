@@ -150,6 +150,13 @@ namespace final_project
                 Start_Exam_Button.IsEnabled = true;
             }
             this.selectedExam = (Exam)ExamsList.SelectedItem;
+            if (selectedExam != null)
+            {
+                this.examDateTB.Text = this.selectedExam.DateTime.ToString();
+                this.examTeacherTB.Text = this.selectedExam.TeacherName;
+                this.examDurationTB.Text = this.selectedExam.Duration.ToString();
+            }
+            
         }
 
         private void Edit_Exam_Button_Click(object sender, RoutedEventArgs e)

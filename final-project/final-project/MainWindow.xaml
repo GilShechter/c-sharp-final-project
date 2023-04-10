@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="DarkOrchid">
     <Grid>
-        <Border Margin="50" CornerRadius="20" Background="White">
+        <Border Margin="50,50,50,50" CornerRadius="20" Background="White">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -26,8 +26,22 @@
                     <TextBox Name="Search_bar" Width="300" Margin="10" Height="30" VerticalContentAlignment="Center" TextChanged="TextBox_TextChanged" />
                 </StackPanel>
                 <StackPanel Grid.Row="2" Margin="20">
-                    <ListBox Name="ExamsList" Height="150" Background="WhiteSmoke" SelectionChanged="ExamsList_SelectionChanged">
-                    </ListBox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <ListBox Grid.Column="0" Name="ExamsList" Height="150" Width="300" HorizontalAlignment="Left" Background="WhiteSmoke" SelectionChanged="ExamsList_SelectionChanged">
+                        </ListBox>
+                        <StackPanel Grid.Column="1" Width="300" Background="WhiteSmoke">
+                            <Label Name="examDateLbl" Content="Date:" FontWeight="Bold"></Label>
+                            <TextBlock Name="examDateTB" Margin="10, 0, 0, 0"></TextBlock>
+                            <Label Name="examTeacherLbl" Content="Teacher:" FontWeight="Bold"></Label>
+                            <TextBlock Name="examTeacherTB" Margin="10, 0, 0, 0"></TextBlock>
+                            <Label Name="examDurationLbl" Content="Duration:" FontWeight="Bold"></Label>
+                            <TextBlock Name="examDurationTB" Margin="10, 0, 0, 0"></TextBlock>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
                 <Button Name="Start_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="Start_Exam_Button_Click" IsEnabled="False">Start Exam</Button>
                 <Button Name="View_Exam_Button" Grid.Row="2" Width="70" HorizontalAlignment="Right" Margin="0,182,36,3" Grid.RowSpan="2" Click="View_Exam_Button_Click" IsEnabled="False">View Exam</Button>
