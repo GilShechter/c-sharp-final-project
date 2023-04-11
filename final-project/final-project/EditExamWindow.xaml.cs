@@ -46,8 +46,6 @@ namespace final_project
                 
             }
 
-            // update the count of the questions in the exam
-            QuestionsNumberBox.Text = (ListBoxQuestions.Items.Count).ToString();
         }
 
         private async void addExamBtn_Click(object sender, RoutedEventArgs e)
@@ -142,9 +140,6 @@ namespace final_project
             this._questions.Add(question);
 
             ListBoxQuestions.Items.Add((Question)question);
-
-            // update the questions count
-            QuestionsNumberBox.Text = (i + 1).ToString();
 
             // select the new question
             ListBoxQuestions.SelectedIndex = i;
@@ -362,6 +357,23 @@ namespace final_project
 
             this._questions[index].answers = this._answers.ToArray();
             this._answers.Clear();
+        }
+
+        private async void RemoveExamBtn_Click(object sender, RoutedEventArgs e)
+        {
+            // Serialize the object to JSON
+            var json = JsonConvert.SerializeObject(exam);
+
+            // Create the request content
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "endpoint");
+            request.Content = content;
+
+            // Send the DELETE request
+            var response = await client.DeleteAsync($"Exam/{exam.ExamId}");
+
+            this.Close();
         }
     }
 }

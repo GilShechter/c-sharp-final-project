@@ -19,9 +19,9 @@
                 <RowDefinition Height="20*"  />
                 <RowDefinition Height="*"  />
             </Grid.RowDefinitions>
-            <TextBlock Name="QuestionsNumberBox" HorizontalAlignment="Center" VerticalAlignment="Top" Height="50" Text="0"/>
             <ListBox Name="ListBoxQuestions" Background="WhiteSmoke" Grid.Row="3"  Margin="0" VerticalAlignment="Stretch" SelectionChanged="ListBoxQuestions_SelectionChanged" />
-            <Button Name="AddQuestionBtn" Content="Add Question" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" Background="LightGreen" Click="AddQuestionBtn_Click"/>
+            <Button Name="AddQuestionBtn" Content="Add Question" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" Click="AddQuestionBtn_Click"/>
+            <Button Name="RemoveExamBtn" Content="Remove Exam" Background="IndianRed" Height="30" Width="80" HorizontalAlignment="Left" Margin="10,5,5,5" VerticalAlignment="Center" Click="RemoveExamBtn_Click"/>
 
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0" >
@@ -38,7 +38,7 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <Button Name="addExamBtn" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Add Exam" Grid.Row="0" Margin="10" Height="30" Width="80" Click="addExamBtn_Click"/>
+            <Button Name="addExamBtn" FontSize="10" HorizontalAlignment="Right" VerticalAlignment="Top" Content="Submit" Grid.Row="0" Margin="10" Height="30" Width="80" Background="LawnGreen" Click="addExamBtn_Click"/>
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden" Height="150">
                 <StackPanel Name="QuestionContent" Margin="10,10,10,10">
                     <Label Name="Contentlbl" Content="Question: " HorizontalAlignment="Left" />
@@ -51,8 +51,8 @@
             </ScrollViewer>
         </Grid>
 
-        <Button Name="AddAnswerBtn" Content="Add Answer" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Height="30" Width="100" Background="Aqua" Click="AddAnswerBtn_Click"/>
-        <Button Name="ConfirmBtn" Content="Confirm Question" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="131,0,0,10" Height="30" Width="100" Background="LawnGreen" Click="ConfirmBtn_Click" />
+        <Button Name="AddAnswerBtn" Content="Add Answer" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Height="30" Width="100" Click="AddAnswerBtn_Click"/>
+        <Button Name="ConfirmBtn" Content="Confirm Question" Grid.Column="1"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="131,0,0,10" Height="30" Width="100" Click="ConfirmBtn_Click" />
 
         <StackPanel  Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right">
             <Button FontSize="15"  Margin="10" Height="30" Content="Previous" Width="100" Name="PrevBtn" Click="PrevBtn_Click" />
