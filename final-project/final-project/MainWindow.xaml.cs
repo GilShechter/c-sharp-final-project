@@ -76,7 +76,21 @@ namespace final_project
 
         private void Start_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            // check if the current date is the examination date
+            if ((DateTimeOffset)this.selectedExam.DateTime != DateTimeOffset.Now.Date)
+            {
+                MessageBox.Show("Exam can't be taken in the current date", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // check if the user already solved the exam
+            if (this.selectedExam.examUser.Any(examUser => (string)examUser.userName == this.currentUser.Name))
+            {
+                MessageBox.Show("Exam can't be taken more than once", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             ExamWindow examWindow = new ExamWindow(this.selectedExam, this.currentUser);
+            
             examWindow.Show();
         }
 
