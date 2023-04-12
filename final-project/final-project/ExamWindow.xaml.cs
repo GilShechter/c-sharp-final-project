@@ -45,7 +45,8 @@ namespace final_project
                 if (_time == TimeSpan.Zero)
                 {
                     _timer.Stop();
-                    // navigate to exam choosing window
+                    // save and close the window
+                    exitBtnClick(this, new RoutedEventArgs());
                 }
                 _time = _time.Add(TimeSpan.FromSeconds(-1));
             }, Application.Current.Dispatcher);
@@ -54,10 +55,6 @@ namespace final_project
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            // init the number of answered questions to 0 out of num of questions
-            this.QuestionsNumberBox.Text = "0/" +
-                this.exam.Questions.Count.ToString();
-
             // check if the exam is random and re-sort the questions
             if (this.exam.isRandom == true)
             {
@@ -74,6 +71,10 @@ namespace final_project
                     this.ListBoxQuestions.Items.Add(this.exam.Questions.ElementAt(i));
                 }
             }
+
+            // init the number of answered questions to 0 out of num of questions
+            this.QuestionsNumberBox.Text = "0/" +
+                this.ListBoxQuestions.Items.Count.ToString();
         }
 
         static void RandomSort<T>(ICollection<T> collection)
@@ -192,6 +193,11 @@ namespace final_project
             {
                 foreach (Question question in this.ListBoxQuestions.Items)
                 {
+                    if (question.chosenAnswer == -1)
+                    {
+                        continue;
+                    }
+
                     if (question.answers.ElementAt(question.chosenAnswer).CorrectAnswer == true)
                     {
                         this.correctAnswerCountt++;
