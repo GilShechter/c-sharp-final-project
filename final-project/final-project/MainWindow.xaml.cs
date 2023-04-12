@@ -15,7 +15,7 @@ namespace final_project
     {
         User currentUser;
         List<Exam> examsList;
-        Exam selectedExam;
+        Exam? selectedExam;
         HttpClient client = new HttpClient();
         public MainWindow(User currentUser)
         {
@@ -46,51 +46,9 @@ namespace final_project
             addExamWindow.Show();
         }
 
+        /* Getting all Exams from database and adding them to the examsList: */
         private async void GetExams(string keyWord)
         {
-            // ************ This is an Exam of adding a new Exam to the database ************
-            /*  
-            
-            // Creating the new exam locally with questions, answers and teacher
-            List<Question> questions = new List<Question>();
-            Answer answer1 = new Answer("Yes", true);
-            Answer answer2 = new Answer("No", false);
-            List<Answer> answers = new List<Answer>();
-            answers.Add(answer1);
-            answers.Add(answer2);
-            Question question1 = new Question("Is this a test?", answers);
-            Question question2 = new Question("Are you okay?", answers);
-            Question question3 = new Question("Are you a human?", answers);
-            questions.Add(question1);
-            questions.Add(question2);
-            questions.Add(question3);
-            User teacher = new User("Test2", "222", "test2", true);
-            Exam new_exam = new Exam("Test2", DateTime.Now, teacher, 90, false, questions);
-
-            // Serialize the object to JSON
-            var json = JsonConvert.SerializeObject(new_exam);
-
-            // Create the request content
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var request = new HttpRequestMessage(HttpMethod.Post, "endpoint");
-            request.Content = content;
-
-            // Send the POST request
-            var response1 = await client.PostAsync("Exam", content);
-
-            // Handle the response
-            if (!response1.IsSuccessStatusCode)
-            {
-                // The request failed
-                var errorMessage = await response1.Content.ReadAsStringAsync();
-                MessageBox.Show(errorMessage);
-                // Handle the error message
-            }
-
-            */
-
-            // Getting all Exams from database and adding them to the examsList:
 
             // Send the GET request
             var response = await client.GetStringAsync("Exam");

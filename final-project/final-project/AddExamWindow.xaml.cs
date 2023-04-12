@@ -98,18 +98,6 @@ namespace final_project
             stackPanel.Children.Add(namelbl);
             stackPanel.Children.Add(nameTB);
 
-            /*
-            // set teacherNameTB
-            teacherNameTB.Margin = new Thickness(5, 0, 0, 10);
-            teacherNameTB.HorizontalAlignment = HorizontalAlignment.Left;
-            teacherNameTB.Width = 400;
-            teacherNameTB.Background = Brushes.LightGray;
-            teacherNameTB.Name = "teacherNameTB";
-
-            stackPanel.Children.Add(teacherNamelbl);
-            stackPanel.Children.Add(teacherNameTB);
-            */
-
             // set dateTB
             dateTB.Margin = new Thickness(5, 0, 0, 10);
             dateTB.HorizontalAlignment = HorizontalAlignment.Left;
