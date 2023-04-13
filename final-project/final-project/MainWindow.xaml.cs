@@ -76,6 +76,12 @@ namespace final_project
 
         private void Start_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            // check if the exam is marked
+            if(ExamsList.SelectedIndex == -1)
+            {
+                return;
+            }
+
             // check if the current date is the examination date
             if ((DateTimeOffset)this.selectedExam.DateTime != DateTimeOffset.Now.Date)
             {
