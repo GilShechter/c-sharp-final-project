@@ -42,6 +42,9 @@ namespace final_project
 
         private void Add_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * Add Exam Button functionality: open the AddExam window. send as argument the teacher user
+             */
             AddExamWindow addExamWindow = new AddExamWindow(currentUser);
             addExamWindow.Show();
         }
@@ -69,6 +72,9 @@ namespace final_project
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            /*
+             * Search bar functionality: show the matching exams according to the search
+             */
             string keyWord = this.Search_bar.Text;
             this.ExamsList.Items.Clear();
             GetExams(keyWord);
@@ -102,6 +108,11 @@ namespace final_project
 
         private void View_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            // check if the exam is marked
+            if (ExamsList.SelectedIndex == -1)
+            {
+                return;
+            }
             StatisticsWindow statisticsWindow = new StatisticsWindow(this.selectedExam);
             statisticsWindow.Show();
         }
@@ -130,6 +141,11 @@ namespace final_project
 
         private void Edit_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            // check if the exam is marked
+            if (ExamsList.SelectedIndex == -1)
+            {
+                return;
+            }
             EditExamWindow editExamWindow = new EditExamWindow((Exam)ExamsList.SelectedItem);
             editExamWindow.Show();
         }
