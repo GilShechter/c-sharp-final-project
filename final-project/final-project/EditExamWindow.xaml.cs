@@ -46,8 +46,7 @@ namespace final_project
         private async void addExamBtn_Click(object sender, RoutedEventArgs e)
         {
             /*
-             * Button to add the exam we just created into the exams list
-             * and exit this window
+             * Button to save the exam we just edited and exit this window
              */
 
             // delete all empty questions
@@ -70,12 +69,6 @@ namespace final_project
 
             var request = new HttpRequestMessage(HttpMethod.Post, "endpoint");
             request.Content = content;
-
-            /*            // Send the DELETE request
-                        var response = await client.DeleteAsync($"Exam/{exam.ExamId}");
-
-                        // Send the POST request
-                        response = await client.PostAsync("Exam", content);*/
 
             // Send the PUT requese
             var response = await client.PutAsync($"Exam/{exam.ExamId}", content);

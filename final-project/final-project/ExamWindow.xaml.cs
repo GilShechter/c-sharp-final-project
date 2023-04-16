@@ -179,8 +179,7 @@ namespace final_project
         private void exitBtnClick(object sender, RoutedEventArgs e)
         {
             /*
-             * Exit button functionality: close the exam
-             * (might be changed to Finish button)                         
+             * Finish button functionality: calculate and save the grade and close the window
              */
             if (this.exam.Questions.Count > 0)
             {
@@ -207,6 +206,7 @@ namespace final_project
             int finalGrade = (int)Math.Ceiling(this.correctAnswerCountt * pointsPerQuestion);
 
             this.examUser.Grade = finalGrade;
+            MessageBox.Show("Your grade is: "+finalGrade.ToString(), "Your grade:", MessageBoxButton.OK, MessageBoxImage.Information);
 
             PostExamUser(this.examUser);
 

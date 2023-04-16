@@ -42,6 +42,9 @@ namespace final_project
 
         private void Add_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * Add Exam Button functionality: open the AddExam window. send as argument the teacher user
+             */
             AddExamWindow addExamWindow = new AddExamWindow(currentUser);
             addExamWindow.Show();
         }
@@ -69,6 +72,9 @@ namespace final_project
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            /*
+             * Search bar functionality: show the matching exams according to the search
+             */
             string keyWord = this.Search_bar.Text;
             this.ExamsList.Items.Clear();
             GetExams(keyWord);
@@ -76,12 +82,37 @@ namespace final_project
 
         private void Start_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            // check if the exam is marked
+            if(ExamsList.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            // check if the current date is the examination date
+            if ((DateTimeOffset)this.selectedExam.DateTime != DateTimeOffset.Now.Date)
+            {
+                MessageBox.Show("Exam can't be taken in the current date", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // check if the user already solved the exam
+            if (this.selectedExam.examUser.Any(examUser => (string)examUser.userName == this.currentUser.Name))
+            {
+                MessageBox.Show("Exam can't be taken more than once", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             ExamWindow examWindow = new ExamWindow(this.selectedExam, this.currentUser);
+            
             examWindow.Show();
         }
 
         private void View_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            // check if the exam is marked
+            if (ExamsList.SelectedIndex == -1)
+            {
+                return;
+            }
             StatisticsWindow statisticsWindow = new StatisticsWindow(this.selectedExam);
             statisticsWindow.Show();
         }
@@ -110,6 +141,11 @@ namespace final_project
 
         private void Edit_Exam_Button_Click(object sender, RoutedEventArgs e)
         {
+            // check if the exam is marked
+            if (ExamsList.SelectedIndex == -1)
+            {
+                return;
+            }
             EditExamWindow editExamWindow = new EditExamWindow((Exam)ExamsList.SelectedItem);
             editExamWindow.Show();
         }

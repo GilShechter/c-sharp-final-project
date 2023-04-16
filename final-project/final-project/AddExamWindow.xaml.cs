@@ -144,8 +144,7 @@ namespace final_project
                 string name;
                 DateTimeOffset dateTime;
                 int duration;
-                bool isRandom;
-                // Teacher teacher;
+                bool isRandom;                
 
                 name = nameTB.Text;
 
@@ -242,8 +241,7 @@ namespace final_project
             // Add an empty question
             int i = ListBoxQuestions.Items.Count;
 
-            Question question = new Question("", this._answers);
-         /*   question.questionId = ListBoxQuestions.Items.Count + 1;*/
+            Question question = new Question("", this._answers);         
             this._questions.Add(question);
 
             ListBoxQuestions.Items.Add((Question)question);

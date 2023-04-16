@@ -23,6 +23,10 @@ namespace final_project
 
         private async void Login_Button_Click(object sender, RoutedEventArgs e)
         {
+            /*
+             * Login button functionality: check if the user exists and show the suitable
+             * window for user by type (student, teacher or error message for invalid user)
+             */
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password.ToString();
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
