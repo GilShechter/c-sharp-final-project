@@ -4,6 +4,10 @@
 
 This is a project that implements an online testing system, designed for two types of users: teachers and examinees. The system allows teachers to create and manage exams, while examinees can take exams online.
 
+## Video Presentation
+
+Watch our video presentation [here](https://www.canva.com/design/DAFgKm1g8RQ/9LbXa_dqdQlLAEOO3bs5dA/watch) to learn more about the online testing system.
+
 ## Features
 
 - Teachers can:
@@ -42,11 +46,6 @@ To set up the online testing system locally, follow these steps:
 4. Restore the NuGet packages using the package manager or the `dotnet restore` command.
 5. Run the system locally for testing and development purposes.
 
-## Video Presentation
-
-Watch our video presentation [here](https://www.canva.com/design/DAFgKm1g8RQ/9LbXa_dqdQlLAEOO3bs5dA/watch) to learn more about the online testing system.
-
 ## Contribution
 
 Contributions to this project are welcome. If you would like to contribute, please open an issue or submit a pull request. Let's make the online testing system better together!
-
