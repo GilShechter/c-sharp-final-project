@@ -5467,7 +5467,7 @@
       },
       "frameworks": {
         "net6.0-windows7.0": {
-          "targetAlias": "net5.0",
+          "targetAlias": "net6.0-windows",
           "projectReferences": {}
         }
       },
@@ -5479,7 +5479,7 @@
     },
     "frameworks": {
       "net6.0-windows7.0": {
-        "targetAlias": "net5.0",
+        "targetAlias": "net6.0-windows",
         "dependencies": {
           "Microsoft.AspNet.WebApi.Client": {
             "target": "Package",
