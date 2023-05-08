@@ -49,3 +49,6 @@ To set up the online testing system locally, follow these steps:
 ## 🤝 Contribution
 
 Contributions to this project are welcome. If you would like to contribute, please open an issue or submit a pull request. Let's make the online testing system better together!
+
+## App's demo with Hebrew commentary:
+[![Tel Hai Exams](https://img.youtube.com/vi/uElcdn8hxJQ/0.jpg)]([https://www.youtube.com/watch?v=DHHcfVgKcsk](https://www.youtube.com/watch?v=uElcdn8hxJQ) "Tel Hai Exams App Demo")
